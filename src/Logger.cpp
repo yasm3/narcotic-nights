@@ -1,4 +1,5 @@
 #include "Logger.h"
+#include <ctime>
 
 Logger::Logger(const std::string &logFilePath, bool logConsole) : logConsole(logConsole)
 {
