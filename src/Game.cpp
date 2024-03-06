@@ -1,8 +1,15 @@
 #include "Game.h"
 
-Game::Game(const std::string& logFilePath) : logger(logFilePath, true) {}
+Game::Game(const std::string& logFilePath) : lg(logFilePath, true), graphics(*this) {}
+Game::~Game() { cleanup(); }
 
 void Game::init()
 {
-	logger.log(LogLevel::INFO, "Init Game");
+    lg.log(LogLevel::INFO, "Init Game");
+    graphics.init();
+}
+
+void Game::cleanup()
+{
+    graphics.cleanup();
 }

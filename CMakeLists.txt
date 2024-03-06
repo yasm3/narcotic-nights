@@ -9,6 +9,6 @@ add_executable(narcotic-nights
 	src/Game.cpp
 	src/Logger.cpp
 	src/Graphics.cpp
-)
+ "src/Player.h")
 
 target_link_libraries(narcotic-nights SDL2::SDL2 SDL2::SDL2main)

@@ -2,7 +2,8 @@
 
 int main(int argc, char* argv[])
 {
-	Game g("log.txt");
-	g.init();
-	return 0;
+    Game g("log.txt");
+    g.init();
+    g.cleanup();
+    return 0;
 }
