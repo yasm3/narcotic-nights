@@ -12,6 +12,7 @@ class Graphics {
         void init();
         void cleanup();
         void render();
+        void handleInput();
     private:
         Game& game;
         SDL_Window* window = nullptr;

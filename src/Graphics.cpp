@@ -48,3 +48,12 @@ void Graphics::render()
     SDL_RenderClear(renderer);
     SDL_RenderPresent(renderer);
 }
+
+void Graphics::handleInput() {
+    SDL_Event event;
+    while (SDL_PollEvent(&event)) {
+        if (event.type == SDL_QUIT) {
+
+        }
+    }
+}
