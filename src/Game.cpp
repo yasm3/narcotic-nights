@@ -1,32 +1,36 @@
 #include "Game.h"
 
-Game::Game(const std::string& logFilePath) : lg(logFilePath, true), graphics(*this) {}
+Game::Game(const std::string& logFilePath) : logger(logFilePath, true), window(logger) {}
 Game::~Game() { cleanup(); }
 
 void Game::init()
 {
-    lg.log(LogLevel::INFO, "Init Game");
-    graphics.init();
+    logger.log(LogLevel::INFO, "Init Game...");
+    window.create();
 }
 
 void Game::cleanup()
 {
-    graphics.cleanup();
+    window.close();
 }
 
 void Game::update()
 {
+
 }
 
 void Game::render()
 {
-    graphics.render();
+
 }
 
 void Game::run()
 {
-    bool running = true;
-    while (running) {
+    init();
+    while (window.isClosed()) {
+        window.pollEvents();
+        update();
         render();
     }
+    cleanup();
 }
