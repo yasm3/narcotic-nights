@@ -1,14 +1,18 @@
-cmake_minimum_required (VERSION 3.8)
+cmake_minimum_required (VERSION 3.15)
 
-project ("narcotic-nights")
+set(CMAKE_CXX_STANDARD 17)
 
-find_package(SDL2 REQUIRED)
+project(NarcoticNights)
 
-add_executable(narcotic-nights
-	src/main.cpp
-	src/Game.cpp
-	src/Window.cpp
-	src/Logger.cpp
-)
+find_package(SDL2 CONFIG REQUIRED)
+find_package(SDL2_image CONFIG REQUIRED)
 
-target_link_libraries(narcotic-nights SDL2::SDL2 SDL2::SDL2main)
+file(GLOB ENGINE_SOURCES src/engine/*.cpp)
+file(GLOB GAME_SOURCES src/game/*.cpp)
+
+include_directories(include/engine)
+include_directories(include/game)
+
+add_executable(narcoticnights ${ENGINE_SOURCES} ${GAME_SOURCES})
+
+target_link_libraries(narcoticnights PRIVATE SDL2::SDL2 SDL2::SDL2main SDL2_image::SDL2_image)
