@@ -5,7 +5,7 @@
 Game::Game() : m_window("Narcotic Nights", 640, 480),
                m_graphics(nullptr),
                m_renderer(nullptr),
-               playerObject(nullptr, 320, 240, 72, 72) {}
+               playerObject(nullptr, 320, 240, 72, 72), t(nullptr) {}
 Game::~Game() {}
 
 void Game::init()
@@ -16,13 +16,19 @@ void Game::init()
 
     std::filesystem::path executablePath = std::filesystem::current_path().parent_path().parent_path().parent_path();
     std::filesystem::path spritePath = executablePath / "assets" / "img" / "sprite.png";
-    Texture* t = new Texture(m_renderer, spritePath.string());
+    std::filesystem::path tilesetPath = executablePath / "assets" / "img" / "tileset.png";
+    t = new Texture(m_renderer, spritePath.string());
     playerObject.setTexture(t);
+    ts = new Tileset(18, 18);
+    ts->load(m_renderer, tilesetPath.string(), 1);
+    ts->print();
+    
 }
 
 void Game::cleanup()
 {
     delete t;
+    delete ts;
 }
 
 void Game::update(Uint32 deltaTime)
@@ -35,6 +41,7 @@ void Game::draw()
 
     m_graphics.clear(255, 255, 0, 255);
     playerObject.draw(m_graphics);
+    m_graphics.draw(ts->get()[12], 10, 10);
     m_graphics.present();
 }
 

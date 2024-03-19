@@ -5,6 +5,7 @@
 #include "Graphics.h"
 #include "Input.h"
 #include "GameObject.h"
+#include "Tileset.h"
 
 class Game {
     public:
@@ -24,6 +25,7 @@ class Game {
         // temporaire
         GameObject playerObject;
         Texture* t;
+        Tileset* ts;
 };
 
 #endif

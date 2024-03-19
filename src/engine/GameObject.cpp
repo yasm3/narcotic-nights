@@ -5,7 +5,7 @@ GameObject::GameObject(Texture* t, float x, float y, int w, int h) :
     m_x(x), m_y(y),
     m_dx(0), m_dy(0),
     m_maxSpeed(1.f),
-    m_accelleration(1.5),
+    m_accelleration(2.f),
     m_friction(0.95),
     m_w(w), m_h(h) {}
 GameObject::~GameObject() {}
