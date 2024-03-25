@@ -16,3 +16,6 @@ include_directories(include/game)
 add_executable(narcoticnights ${ENGINE_SOURCES} ${GAME_SOURCES})
 
 target_link_libraries(narcoticnights PRIVATE SDL2::SDL2 SDL2::SDL2main SDL2_image::SDL2_image)
+
+# Copy assets to build folder
+file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR})

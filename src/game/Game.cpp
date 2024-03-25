@@ -14,7 +14,7 @@ void Game::init()
     m_renderer = m_window.getRenderer();
     m_graphics.setRenderer(m_renderer);
 
-    std::filesystem::path executablePath = std::filesystem::current_path().parent_path().parent_path().parent_path();
+    std::filesystem::path executablePath = std::filesystem::current_path();
     std::filesystem::path spritePath = executablePath / "assets" / "img" / "sprite.png";
     std::filesystem::path tilesetPath = executablePath / "assets" / "img" / "tileset.png";
     t = new Texture(m_renderer, spritePath.string());
@@ -39,8 +39,8 @@ void Game::update(Uint32 deltaTime)
 void Game::draw()
 {
     m_graphics.clear(255, 255, 0, 255);
-    playerObject.draw(m_graphics);
     m_graphics.draw(ts->get()[1], 16, 16, 64, 64);
+    playerObject.draw(m_graphics);
     m_graphics.present();
 }
 
