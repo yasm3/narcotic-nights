@@ -38,10 +38,9 @@ void Game::update(Uint32 deltaTime)
 
 void Game::draw()
 {
-
     m_graphics.clear(255, 255, 0, 255);
     playerObject.draw(m_graphics);
-    m_graphics.draw(ts->get()[12], 10, 10);
+    m_graphics.draw(ts->get()[1], 16, 16, 64, 64);
     m_graphics.present();
 }
 

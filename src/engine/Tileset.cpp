@@ -5,7 +5,7 @@ Tileset::Tileset(int tw, int th) : m_tileWidth(tw), m_tileHeight(th), m_tilesNum
 Tileset::~Tileset()
 {
 	for (auto const& [key, val] : m_tiles) {
-		val->~Texture();
+		delete val;
 		m_tiles.erase(key);
 	}
 }
@@ -18,14 +18,13 @@ void Tileset::load(SDL_Renderer* r, const std::string& filePath, int tilePadding
 	SDL_Rect dst;
 	for (int i = 0; i < tileset.getWidth() / m_tileWidth; i++) {
 		for (int j = 0; j < tileset.getHeight() / m_tileHeight; j++) {
-			Texture tile(r, m_tileWidth, m_tileHeight);
-			src = {i*m_tileWidth+tilePadding, j*m_tileHeight+tilePadding, m_tileWidth, m_tileHeight};
-			dst = { 0,0,0,0 };
-			SDL_SetRenderTarget(r, tile.getTexture());
-			SDL_RenderCopy(r, tileset.getTexture(), &src, &dst);
+			Texture* tile = new Texture(r, m_tileWidth, m_tileHeight);
+			src = {i*m_tileWidth, j*m_tileHeight, m_tileWidth, m_tileHeight};
+			SDL_SetRenderTarget(r, tile->getTexture());
+			SDL_RenderCopy(r, tileset.getTexture(), &src, nullptr);
 			SDL_SetRenderTarget(r, nullptr);
 
-			m_tiles.insert({ m_tilesNumber, &tile });
+			m_tiles.insert({ m_tilesNumber, tile });
 			m_tilesNumber++;
 		}
 	}

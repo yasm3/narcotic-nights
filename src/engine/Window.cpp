@@ -30,6 +30,7 @@ void Window::init()
         throw std::runtime_error("Failed to create SDL window: " + std::string(SDL_GetError()));
     }
 
+
     // renderer creation
     m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED);
     if (m_renderer == nullptr) {
