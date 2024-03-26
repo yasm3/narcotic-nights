@@ -51,7 +51,7 @@
         {
             "name": "windows-x64-debug",
             "displayName": "Windows x64 Debug",
-            "inherits": [ "common", "vcpkg", "arch-x64", "windows" ],
+            "inherits": [ "common", "arch-x64", "windows" ],
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug"
             }
@@ -59,10 +59,20 @@
         {
             "name": "windows-x64-release",
             "displayName": "Windows x64 Release",
-            "inherits": [ "common", "vcpkg", "arch-x64", "windows" ],
+            "inherits": [ "common", "arch-x64", "windows" ],
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release"
             }
+        },
+        {
+            "name": "windows-x64-debug-vcpkg",
+            "displayName": "Windows x64 Debug with VCPKG",
+            "inherits": [ "windows-x64-debug", "vcpkg" ]
+        },
+        {
+            "name": "windows-x64-release-vcpkg",
+            "displayName": "Windows x64 Debug with VCPKG",
+            "inherits": [ "windows-x64-release", "vcpkg" ]
         }
     ]
 }
