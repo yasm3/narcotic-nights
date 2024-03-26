@@ -18,7 +18,7 @@ void GameObject::setTexture(Texture* t)
 void GameObject::draw(Graphics& graphics)
 {
     if (m_texture != nullptr) {
-        graphics.draw(m_texture, m_x, m_y, m_w, m_h);
+       // graphics.draw(m_texture, m_x, m_y, m_w, m_h);
     }
 }
 

@@ -2,6 +2,8 @@
 #define _GRAPHICS_H
 
 #include <SDL2/SDL.h>
+#include <unordered_map>
+#include <memory>
 #include "Texture.h"
 
 class Graphics {
@@ -14,10 +16,19 @@ class Graphics {
         void clear(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
         void present();
 
-        void draw(Texture* texture, int x, int y);
-        void draw(Texture* texture, int x, int y, int w, int h);
+        // Drawing methods
+        void draw(std::shared_ptr<Texture> texture, int x, int y);
+        void draw(std::shared_ptr<Texture> texture, int x, int y, int w, int h);
+
+        // Texture methods
+        std::shared_ptr<Texture> createTextureFromImage(const std::string& imgPath);
+        void cleanTexture(const std::string& imgPath);
+        void cleanAllTextures();
+
     private:
         SDL_Renderer* m_renderer;
+
+        std::unordered_map<std::string, std::shared_ptr<Texture>> m_textures;
 };
 
 #endif

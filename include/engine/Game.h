@@ -24,8 +24,6 @@ class Game {
 
         // temporaire
         GameObject playerObject;
-        Texture* t;
-        Tileset* ts;
 };
 
 #endif
