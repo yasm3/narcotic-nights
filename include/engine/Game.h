@@ -6,6 +6,7 @@
 #include "Input.h"
 #include "GameObject.h"
 #include "Tileset.h"
+#include "Tilemap.h"
 
 class Game {
     public:

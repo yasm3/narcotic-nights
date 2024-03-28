@@ -46,9 +46,3 @@ void Graphics::draw(std::shared_ptr<Texture> t, int x, int y, int scale)
     dstRect.h *= scale;
     SDL_RenderCopy(m_renderer, t->getNativeTexture(), nullptr, &dstRect);
 }
-
-std::shared_ptr<Texture> Graphics::createTextureFromImage(const std::string& imgPath)
-{
-    auto newTexture = std::make_shared<Texture>(m_renderer, imgPath);
-    return newTexture;
-}

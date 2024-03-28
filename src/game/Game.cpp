@@ -6,6 +6,7 @@ Game::Game() : m_window("Narcotic Nights", 640, 480),
                m_graphics(nullptr),
                m_renderer(nullptr),
                playerObject(nullptr, 320, 240, 72, 72) {}
+
 Game::~Game() {}
 
 void Game::init()
@@ -21,7 +22,10 @@ void Game::init()
     Tileset ts(18, 18);
     ts.loadFromFile(m_renderer, tilesetPath.string(), 1);
     ts.printTiles();
-    m_graphics.draw(ts.getTile(17), 10, 10, 10);
+
+    Tilemap tm(13, 7, ts);
+    tm.setTile(5, 5, 10);
+    m_graphics.draw(tm.getTile(5, 5), 10, 10, 10);
 }
 
 void Game::cleanup()

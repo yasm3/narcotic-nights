@@ -30,11 +30,12 @@ void Tileset::printTiles()
 	}
 }
 
-std::shared_ptr<Texture> Tileset::getTile(int id)
+std::shared_ptr<Texture> Tileset::getTile(int tileIndex)
 {
-	auto it = m_tiles.find(id);
+	auto it = m_tiles.find(tileIndex);
 	if (it != m_tiles.end()) {
 		return it->second;
 	}
-	return nullptr;
+	std::cerr << "texture undefined" << std::endl;
+	return 0;
 }

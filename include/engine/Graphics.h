@@ -20,9 +20,6 @@ class Graphics {
         void draw(std::shared_ptr<Texture> texture, int x, int y);
         void draw(std::shared_ptr<Texture> texture, int x, int y, int w, int h);
         void draw(std::shared_ptr<Texture> texture, int x, int y, int scale);
-
-        // Texture methods
-        std::shared_ptr<Texture> createTextureFromImage(const std::string& imgPath);
     private:
         SDL_Renderer* m_renderer;
 };

@@ -12,7 +12,7 @@ class Tileset {
 
 		void loadFromFile(SDL_Renderer* renderer, const std::string& filePath, int tilePadding);
 		void printTiles();
-		std::shared_ptr<Texture> getTile(int id);
+		std::shared_ptr<Texture> getTile(int tileIndex);
 	private:
 		std::map<int, std::shared_ptr<Texture>> m_tiles;
 		int m_tileWidth, m_tileHeight;
