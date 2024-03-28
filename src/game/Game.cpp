@@ -18,8 +18,10 @@ void Game::init()
     std::filesystem::path spritePath = executablePath / "assets" / "img" / "sprite.png";
     std::filesystem::path tilesetPath = executablePath / "assets" / "img" / "tileset.png";
 
-    std::shared_ptr<Texture> tex1 = m_graphics.createTextureFromImage(spritePath.string());
-    m_graphics.draw(tex1, 64, 64, 24, 24);
+    Tileset ts(18, 18);
+    ts.loadFromFile(m_renderer, tilesetPath.string(), 1);
+    ts.printTiles();
+    m_graphics.draw(ts.getTile(17), 10, 10, 10);
 }
 
 void Game::cleanup()

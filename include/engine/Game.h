@@ -18,8 +18,8 @@ class Game {
         void run();
     private:
         Window m_window;
-        Graphics m_graphics;
         SDL_Renderer* m_renderer;
+        Graphics m_graphics;
         Input m_input;
 
         // temporaire

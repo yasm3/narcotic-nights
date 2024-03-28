@@ -19,16 +19,12 @@ class Graphics {
         // Drawing methods
         void draw(std::shared_ptr<Texture> texture, int x, int y);
         void draw(std::shared_ptr<Texture> texture, int x, int y, int w, int h);
+        void draw(std::shared_ptr<Texture> texture, int x, int y, int scale);
 
         // Texture methods
         std::shared_ptr<Texture> createTextureFromImage(const std::string& imgPath);
-        void cleanTexture(const std::string& imgPath);
-        void cleanAllTextures();
-
     private:
         SDL_Renderer* m_renderer;
-
-        std::unordered_map<std::string, std::shared_ptr<Texture>> m_textures;
 };
 
 #endif

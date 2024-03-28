@@ -25,10 +25,17 @@ Texture::~Texture()
     }
 }
 
-SDL_Texture* Texture::getTexture() const
+SDL_Texture* Texture::getNativeTexture() const
 {
     return m_texture;
 }
 
-int Texture::getWidth() { return m_width; }
-int Texture::getHeight() { return m_height; }
+int Texture::getWidth() const
+{
+    return m_width;
+}
+
+int Texture::getHeight() const
+{
+    return m_height;
+}
