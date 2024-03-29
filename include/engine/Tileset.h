@@ -10,6 +10,9 @@ class Tileset {
 	public:
 		Tileset(int tileWidth, int tileHeight);
 
+		int getTileWidth() const;
+		int getTileHeight() const;
+
 		void loadFromFile(SDL_Renderer* renderer, const std::string& filePath, int tilePadding);
 		void printTiles();
 		std::shared_ptr<Texture> getTile(int tileIndex);

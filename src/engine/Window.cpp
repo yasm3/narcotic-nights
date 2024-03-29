@@ -2,7 +2,7 @@
 #include <iostream>
 #include <SDL2/SDL_image.h>
 
-Window::Window(const std::string& t, int w, int h): m_title(t), m_width(w), m_height(h), m_running(true), m_window(nullptr), m_renderer(nullptr) {}
+Window::Window(const std::string& t, int w, int h) : m_title(t), m_width(w), m_height(h), m_running(true), m_window(nullptr), m_renderer(nullptr) {}
 Window::~Window() { cleanup(); }
 
 void Window::init()
@@ -23,13 +23,14 @@ void Window::init()
         SDL_WINDOWPOS_CENTERED,
         m_width,
         m_height,
-        SDL_WINDOW_SHOWN
+        SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE
     );
     if (m_window == nullptr) {
         SDL_Quit();
         throw std::runtime_error("Failed to create SDL window: " + std::string(SDL_GetError()));
     }
 
+    SDL_SetHint(SDL_HINT_RENDER_DRIVER, "opengl");
 
     // renderer creation
     m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED);
@@ -96,5 +97,9 @@ void Window::handleEvents()
     SDL_Event e;
     while (SDL_PollEvent(&e) != 0) {
         if (e.type == SDL_QUIT) m_running = false;
+        else if (e.type == SDL_WINDOWEVENT && e.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
+            m_width = e.window.data1;
+            m_height = e.window.data2;
+        }
     }
 }

@@ -5,6 +5,21 @@ Tilemap::Tilemap(int width, int height, Tileset& tileset) : m_width(width), m_he
     m_tiles.resize(width * height, 0);
 }
 
+int Tilemap::getWidth() const
+{
+    return m_width;
+}
+
+int Tilemap::getHeight() const
+{
+    return m_height;
+}
+
+Tileset& Tilemap::getTileset() const
+{
+    return m_tileset;
+}
+
 void Tilemap::setTile(int x, int y, int tileIndex)
 {
     if (x >= 0 && x < m_width && y >= 0 && y < m_height) {

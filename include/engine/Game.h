@@ -14,7 +14,7 @@ class Game {
         ~Game();
         void init();
         void cleanup();
-        void update(Uint32 deltaTime);
+        void update();
         void draw();
         void run();
     private:

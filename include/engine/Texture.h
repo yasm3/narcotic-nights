@@ -13,8 +13,8 @@ class Texture {
         SDL_Texture* getNativeTexture() const;
         int getWidth() const;
         int getHeight() const;
-    private:
         SDL_Texture* m_texture;
+    private:
         int m_width, m_height;
 };
 

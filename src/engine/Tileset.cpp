@@ -2,6 +2,16 @@
 
 Tileset::Tileset(int tw, int th) : m_tileWidth(tw), m_tileHeight(th) {}
 
+int Tileset::getTileWidth() const
+{
+	return m_tileWidth;
+}
+
+int Tileset::getTileHeight() const
+{
+	return m_tileHeight;
+}
+
 void Tileset::loadFromFile(SDL_Renderer* r, const std::string& filePath, int tilePadding)
 {
 	Texture tileset(r, filePath);

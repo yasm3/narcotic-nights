@@ -7,6 +7,9 @@
 class Tilemap {
     public:
         Tilemap(int width, int height, Tileset& tileset);
+        int getWidth() const;
+        int getHeight() const;
+        Tileset& getTileset() const;
         void setTile(int x, int y, int tileIndex);
         int getTileIndex(int x, int y) const;
         std::shared_ptr<Texture> getTile(int x, int y) const;
