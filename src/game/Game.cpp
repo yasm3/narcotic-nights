@@ -46,16 +46,18 @@ void Game::run()
         ts.loadFromFile(m_renderer, tilesetPath.string(), 1);
         ts.printTiles();
 
-        Tilemap tm(9, 8, ts);
-        tm.setTile(0, 0, 10);
-        tm.setTile(9, 0, 10);
-        tm.setTile(0, 9, 10);
-        tm.setTile(9, 9, 10);
+        Tilemap tm(12, 8, ts);
 
-        tm.setTile(3, 3, 19);
+        for (int i = 0; i < tm.getHeight(); i++) {
+            for (int j = 0; j < tm.getWidth(); j++) {
+                tm.setTile(j, i, 109);
+            }
+        }
 
         int fps = 60;
         int desiredDelta = 1000 / fps;
+
+        // m_window.toggleFullscreen();
 
         while (m_window.isRunning()) {
 

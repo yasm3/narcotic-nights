@@ -21,7 +21,7 @@ sudo apt update && sudo apt install build-essential ninja-build git cmake libsdl
 
 ```
 cmake --preset linux-x64-debug
-cmake --build --preset linux-debug
+cd build/linux-x64-debug
+ninja all
+./narcoticnights
 ```
-
-3) Le programme compilé se trouve dans ```build/linux-x64-debug```
