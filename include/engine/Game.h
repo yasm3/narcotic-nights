@@ -6,6 +6,7 @@
 #include "Input.h"
 #include "GameObject.h"
 #include "Tileset.h"
+#include "Tilemap.h"
 
 class Game {
     public:
@@ -13,19 +14,17 @@ class Game {
         ~Game();
         void init();
         void cleanup();
-        void update(Uint32 deltaTime);
+        void update();
         void draw();
         void run();
     private:
         Window m_window;
-        Graphics m_graphics;
         SDL_Renderer* m_renderer;
+        Graphics m_graphics;
         Input m_input;
 
         // temporaire
         GameObject playerObject;
-        Texture* t;
-        Tileset* ts;
 };
 
 #endif

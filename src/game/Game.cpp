@@ -2,46 +2,35 @@
 #include <iostream>
 #include <filesystem>
 
-Game::Game() : m_window("Narcotic Nights", 640, 480),
-               m_graphics(nullptr),
+Game::Game() : m_window("Narcotic Nights", 1000, 1000),
+               m_graphics(&m_window),
                m_renderer(nullptr),
-               playerObject(nullptr, 320, 240, 72, 72), t(nullptr) {}
+               playerObject(nullptr, 320, 240, 72, 72) {}
+
 Game::~Game() {}
 
 void Game::init()
 {
     m_window.init();
     m_renderer = m_window.getRenderer();
-    m_graphics.setRenderer(m_renderer);
-
-    std::filesystem::path executablePath = std::filesystem::current_path();
-    std::filesystem::path spritePath = executablePath / "assets" / "img" / "sprite.png";
-    std::filesystem::path tilesetPath = executablePath / "assets" / "img" / "tileset.png";
-    t = new Texture(m_renderer, spritePath.string());
-    playerObject.setTexture(t);
-    ts = new Tileset(18, 18);
-    ts->load(m_renderer, tilesetPath.string(), 1);
-    ts->print();
-    
+    m_graphics.attachWindow(&m_window);
 }
 
 void Game::cleanup()
 {
-    delete t;
-    delete ts;
+
 }
 
-void Game::update(Uint32 deltaTime)
+void Game::update()
 {
-    playerObject.update(deltaTime, m_input);
+    int mouseX, mouseY;
+    SDL_GetMouseState(&mouseX, &mouseY);
+    // std::cout << "mouseX: " << mouseX << " mouseY: " << mouseY << std::endl;
 }
 
 void Game::draw()
 {
-    m_graphics.clear(255, 255, 0, 255);
-    m_graphics.draw(ts->get()[4], 16, 16, 64, 64);
-    playerObject.draw(m_graphics);
-    m_graphics.present();
+
 }
 
 void Game::run()
@@ -49,18 +38,46 @@ void Game::run()
     try {
         init();
 
-        Uint32 lastUpdateTime = SDL_GetTicks();
+        std::filesystem::path executablePath = std::filesystem::current_path();
+        std::filesystem::path tilesetPath = executablePath / "assets" / "img" / "tileset.png";
+        std::filesystem::path spritePath = executablePath / "assets" / "img" / "sprite.png";
+
+        Tileset ts(18, 18);
+        ts.loadFromFile(m_renderer, tilesetPath.string(), 1);
+        ts.printTiles();
+
+        Tilemap tm(12, 8, ts);
+
+        for (int i = 0; i < tm.getHeight(); i++) {
+            for (int j = 0; j < tm.getWidth(); j++) {
+                tm.setTile(j, i, 109);
+            }
+        }
+
+        int fps = 60;
+        int desiredDelta = 1000 / fps;
+
+        // m_window.toggleFullscreen();
 
         while (m_window.isRunning()) {
-            Uint32 currentTime = SDL_GetTicks();
-            Uint32 deltaTime = currentTime - lastUpdateTime;
-            lastUpdateTime = currentTime;
+
+            int startLoop = SDL_GetTicks();
 
             m_input.update();
             m_window.handleEvents();
 
-            update(deltaTime);
+            update();
             draw();
+
+            m_graphics.clear();
+            m_graphics.drawTilemap(tm);
+
+            m_graphics.present();
+
+            int delta = SDL_GetTicks() - startLoop;
+            if (delta < desiredDelta) {
+                SDL_Delay(desiredDelta - delta);
+            }
         }
         cleanup();
     }

@@ -1,43 +1,51 @@
 #include "Tileset.h"
 
-Tileset::Tileset(int tw, int th) : m_tileWidth(tw), m_tileHeight(th), m_tilesNumber(0){}
+Tileset::Tileset(int tw, int th) : m_tileWidth(tw), m_tileHeight(th) {}
 
-Tileset::~Tileset()
+int Tileset::getTileWidth() const
 {
-	for (auto const& [key, val] : m_tiles) {
-		delete val;
-		m_tiles.erase(key);
-	}
+	return m_tileWidth;
 }
 
-void Tileset::load(SDL_Renderer* r, const std::string& filePath, int tilePadding)
+int Tileset::getTileHeight() const
+{
+	return m_tileHeight;
+}
+
+void Tileset::loadFromFile(SDL_Renderer* r, const std::string& filePath, int tilePadding)
 {
 	Texture tileset(r, filePath);
 
 	SDL_Rect src;
 	SDL_Rect dst;
-	for (int i = 0; i < tileset.getWidth() / m_tileWidth; i++) {
-		for (int j = 0; j < tileset.getHeight() / m_tileHeight; j++) {
-			Texture* tile = new Texture(r, m_tileWidth, m_tileHeight);
-			src = {i*m_tileWidth, j*m_tileHeight, m_tileWidth, m_tileHeight};
-			SDL_SetRenderTarget(r, tile->getTexture());
-			SDL_RenderCopy(r, tileset.getTexture(), &src, nullptr);
+	for (int i = 0; i < tileset.getHeight() / m_tileHeight; i++) {
+		for (int j = 0; j < tileset.getWidth() / m_tileWidth; j++) {
+			std::shared_ptr<Texture> tile = std::make_shared<Texture>(r, m_tileWidth, m_tileHeight);
+
+			src = {j * m_tileWidth + j * tilePadding, i * m_tileHeight + i * tilePadding, m_tileWidth, m_tileHeight};
+			SDL_SetRenderTarget(r, tile->getNativeTexture());
+			SDL_RenderCopy(r, tileset.getNativeTexture(), &src, nullptr);
 			SDL_SetRenderTarget(r, nullptr);
 
-			m_tiles.insert({ m_tilesNumber, tile });
-			m_tilesNumber++;
+			m_tiles.insert({ m_tiles.size(), tile });
 		}
 	}
 }
 
-void Tileset::print()
+void Tileset::printTiles()
 {
+	std::cout << "tileset content:" << std::endl;
 	for (auto const& [key, val] : m_tiles) {
 		std::cout << "ID: " << key << " texture: " << val << std::endl;
 	}
 }
 
-std::map<int, Texture*> Tileset::get()
+std::shared_ptr<Texture> Tileset::getTile(int tileIndex)
 {
-	return m_tiles;
+	auto it = m_tiles.find(tileIndex);
+	if (it != m_tiles.end()) {
+		return it->second;
+	}
+	std::cerr << "texture undefined" << std::endl;
+	return 0;
 }

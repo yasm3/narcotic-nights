@@ -7,14 +7,14 @@
 
 class Texture {
     public:
-        Texture(SDL_Renderer* renderer, const std::string& imgPath);
+        Texture(SDL_Renderer* renderer, const std::string& filePath);
         Texture(SDL_Renderer* renderer, int width, int height);
         ~Texture();
-        SDL_Texture* getTexture() const;
-        int getWidth();
-        int getHeight();
-    private:
+        SDL_Texture* getNativeTexture() const;
+        int getWidth() const;
+        int getHeight() const;
         SDL_Texture* m_texture;
+    private:
         int m_width, m_height;
 };
 

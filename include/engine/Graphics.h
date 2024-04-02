@@ -1,22 +1,29 @@
 #ifndef _GRAPHICS_H
 #define _GRAPHICS_H
 
+#include <memory>
 #include <SDL2/SDL.h>
+#include "Window.h"
 #include "Texture.h"
+#include "Tilemap.h"
 
 class Graphics {
     public:
-        Graphics(SDL_Renderer* renderer);
+        Graphics(Window* window);
         ~Graphics();
-        void setRenderer(SDL_Renderer* renderer);
+        void attachWindow(Window* window);
 
         void clear();
         void clear(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
         void present();
 
-        void draw(Texture* texture, int x, int y);
-        void draw(Texture* texture, int x, int y, int w, int h);
+        // Drawing methods
+        void draw(std::shared_ptr<Texture> texture, int x, int y);
+        void draw(std::shared_ptr<Texture> texture, int x, int y, int w, int h);
+        void draw(std::shared_ptr<Texture> texture, int x, int y, int scale);
+        void drawTilemap(const Tilemap& tilemap);
     private:
+        Window* m_window;
         SDL_Renderer* m_renderer;
 };
 
