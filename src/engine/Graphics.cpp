@@ -50,8 +50,8 @@ void Graphics::draw(std::shared_ptr<Texture> t, int x, int y, int scale)
 
 void Graphics::drawTilemap(const Tilemap& tm)
 {
-    int tileWidth = tm.getTileset().getTileWidth();
-    int tileHeight = tm.getTileset().getTileHeight();
+    int tileWidth = tm.getTileset()->getTileWidth();
+    int tileHeight = tm.getTileset()->getTileHeight();
 
     int tilesNumberWidth = tm.getWidth();
     int tilesNumberHeight = tm.getHeight();

@@ -1,8 +1,9 @@
 #include "Game.h"
 #include <iostream>
 #include <filesystem>
+#include "Dungeon.h"
 
-Game::Game() : m_window("Narcotic Nights", 1000, 1000),
+Game::Game() : m_window("Narcotic Nights", 1200, 800),
                m_graphics(&m_window),
                m_renderer(nullptr),
                playerObject(nullptr, 320, 240, 72, 72) {}
@@ -44,15 +45,27 @@ void Game::run()
 
         Tileset ts(18, 18);
         ts.loadFromFile(m_renderer, tilesetPath.string(), 1);
-        ts.printTiles();
+        // ts.printTiles();
 
-        Tilemap tm(12, 8, ts);
+        Tilemap tm(12, 8, &ts);
 
         for (int i = 0; i < tm.getHeight(); i++) {
             for (int j = 0; j < tm.getWidth(); j++) {
                 tm.setTile(j, i, 109);
             }
         }
+
+        Room introRoom("Intro Room", RoomType::NORMAL);
+        Room normalRoom("Random normal room", RoomType::NORMAL);
+        std::vector<Room> poolRooms {introRoom, normalRoom};
+
+        Dungeon d;
+        std::cout << "x: " << d.getCurrentRoomX() << " y: " << d.getCurrentRoomY() << std::endl;
+        d.moveRight();
+        d.moveRight();
+        d.moveRight();
+        d.moveDown();
+        std::cout << "x: " << d.getCurrentRoomX() << " y: " << d.getCurrentRoomY() << std::endl;
 
         int fps = 60;
         int desiredDelta = 1000 / fps;
