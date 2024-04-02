@@ -59,7 +59,7 @@ void Game::run()
         Room normalRoom("Random normal room", RoomType::NORMAL);
         std::vector<Room> poolRooms {introRoom, normalRoom};
 
-        Dungeon d;
+        Dungeon d(poolRooms);
         std::cout << "x: " << d.getCurrentRoomX() << " y: " << d.getCurrentRoomY() << std::endl;
         d.moveRight();
         d.moveRight();
