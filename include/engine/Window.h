@@ -4,12 +4,17 @@
 #include <string>
 #include <SDL2/SDL.h>
 
+#include "imgui.h"
+#include "imgui_impl_sdl2.h"
+#include "imgui_impl_sdlrenderer2.h"
+
 class Window {
     public:
         Window(const std::string& title, int width, int height);
         ~Window();
 
         void init();
+        void initImGui();
         void cleanup();
         bool isRunning() const;
         SDL_Renderer* getRenderer() const;

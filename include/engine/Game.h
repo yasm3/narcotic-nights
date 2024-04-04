@@ -7,6 +7,7 @@
 #include "GameObject.h"
 #include "Tileset.h"
 #include "Tilemap.h"
+#include "DevMenu.h"
 
 class Game {
     public:
@@ -18,13 +19,18 @@ class Game {
         void draw();
         void run();
     private:
+        bool m_running;
+        float m_last_frame_time;
+
         Window m_window;
         SDL_Renderer* m_renderer;
         Graphics m_graphics;
         Input m_input;
 
-        // temporaire
-        GameObject playerObject;
+        DevMenu m_devMenu;
+
+        friend class DevMenu;
+
 };
 
 #endif
