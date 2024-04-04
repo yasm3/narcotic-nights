@@ -13,15 +13,13 @@ enum RoomType {
 
 class Room {
     public:
-        Room* leftRoom;
-        Room* rightRoom;
-        Room* upRoom;
-        Room* downRoom;
-        RoomType roomType;
-
-        Room(std::string  name, RoomType roomType);
+        Room(std::string name, RoomType roomType);
+        Room(std::string filename);
     private:
         std::string m_name;
+        RoomType m_roomType;
+
+        RoomType strToType(const std::string& roomType);
 };
 
 #endif

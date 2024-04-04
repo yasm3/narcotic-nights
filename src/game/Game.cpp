@@ -28,10 +28,8 @@ void Game::cleanup()
 
 void Game::update()
 {
-
     float deltaTime = (SDL_GetTicks() - m_last_frame_time) / 1000.0;
     m_last_frame_time = SDL_GetTicks();
-
 }
 
 void Game::draw()
