@@ -9,11 +9,13 @@ find_package(SDL2_image CONFIG REQUIRED)
 
 file(GLOB ENGINE_SOURCES src/engine/*.cpp)
 file(GLOB GAME_SOURCES src/game/*.cpp)
+file(GLOB IMGUI_SOURCES src/imgui/*.cpp)
 
 include_directories(include/engine)
 include_directories(include/game)
+include_directories(include/imgui)
 
-add_executable(narcoticnights ${ENGINE_SOURCES} ${GAME_SOURCES})
+add_executable(narcoticnights ${ENGINE_SOURCES} ${GAME_SOURCES} ${IMGUI_SOURCES})
 
 target_link_libraries(narcoticnights PRIVATE SDL2::SDL2 SDL2::SDL2main SDL2_image::SDL2_image)
 
