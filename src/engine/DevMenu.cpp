@@ -17,10 +17,11 @@ bool DevMenu::isOpen()
 
 void DevMenu::render()
 {
+    ImGuiIO& io = ImGui::GetIO();
     ImGui::Begin("Development Menu");
 
-    ImGui::Text("This is some useful text."); 
-    ImGui::Text("Largeur: %d", m_game.m_window.getWidth());
+    ImGui::Text("FPS: %.1f", io.Framerate);
+    ImGui::Text("Window: %dx%d", m_game.m_window.getWidth(), m_game.m_window.getHeight());
 
     ImGui::End();
 }
