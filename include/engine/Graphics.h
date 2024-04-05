@@ -18,9 +18,9 @@ class Graphics {
         void present();
 
         // Drawing methods
-        void draw(std::shared_ptr<Texture> texture, int x, int y);
-        void draw(std::shared_ptr<Texture> texture, int x, int y, int w, int h);
-        void draw(std::shared_ptr<Texture> texture, int x, int y, int scale);
+        void draw(const Texture* texture, int x, int y);
+        void draw(const Texture* texture, int x, int y, int w, int h);
+        void draw(const Texture* texture, int x, int y, int scale);
         void drawTilemap(const Tilemap& tilemap);
     private:
         Window* m_window;

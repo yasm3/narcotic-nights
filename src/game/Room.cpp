@@ -1,5 +1,6 @@
 #include "Room.h"
 #include <fstream>
+#include <iostream>
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;
 
@@ -17,7 +18,7 @@ Room::Room(std::string filename)
 
     m_name = roomData["name"].get<std::string>();
     m_roomType = strToType(roomData["type"].get<std::string>());
-    // WIP 
+    
 }
 
 RoomType Room::strToType(const std::string& roomType)

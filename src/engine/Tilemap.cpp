@@ -1,11 +1,6 @@
 #include "Tilemap.h"
 
-Tilemap::Tilemap() : m_width(0), m_height(0), m_tileset()
-{
-
-}
-
-Tilemap::Tilemap(int width, int height, Tileset* tileset) : m_width(width), m_height(height), m_tileset(tileset)
+Tilemap::Tilemap(int width, int height, Tileset& tileset) : m_width(width), m_height(height), m_tileset(tileset)
 {
     m_tiles.resize(width * height, 0);
 }
@@ -20,7 +15,7 @@ int Tilemap::getHeight() const
     return m_height;
 }
 
-Tileset* Tilemap::getTileset() const
+Tileset& Tilemap::getTileset() const
 {
     return m_tileset;
 }
@@ -41,7 +36,8 @@ int Tilemap::getTileIndex(int x, int y) const
     return 0;
 }
 
-std::shared_ptr<Texture> Tilemap::getTile(int x, int y) const
+Texture& Tilemap::getTile(int x, int y) const
 {
-    return m_tileset->getTile(getTileIndex(x, y));
+    int tileIndex = getTileIndex(x, y);
+    return m_tileset.getTile(tileIndex);
 }

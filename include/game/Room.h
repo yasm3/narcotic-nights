@@ -2,6 +2,7 @@
 #define _ROOM_H
 
 #include <string>
+#include "Tilemap.h"
 
 enum RoomType {
     NORMAL,

@@ -19,6 +19,10 @@ void Game::init()
     m_window.init();
     m_renderer = m_window.getRenderer();
     m_graphics.attachWindow(&m_window);
+    m_assetManager.attachRenderer(m_renderer);
+
+    m_assetManager.loadTexture("sprite", "assets/img/sprite.png");
+    m_assetManager.loadTileset(18, 18, 1, "assets/img/tileset.png");
 }
 
 void Game::cleanup()
@@ -35,6 +39,8 @@ void Game::update()
 void Game::draw()
 {
     m_graphics.clear();
+    m_graphics.draw(&m_assetManager.getTexture("sprite"), 10, 10, 4);
+    m_graphics.draw(&m_assetManager.getTileset().getTile(10), 30, 30);
 }
 
 void Game::run()

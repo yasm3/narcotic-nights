@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <map>
+#include <vector>
 #include <string>
 #include "Texture.h"
 
@@ -14,10 +15,9 @@ class Tileset {
 		int getTileHeight() const;
 
 		void loadFromFile(SDL_Renderer* renderer, const std::string& filePath, int tilePadding);
-		void printTiles();
-		std::shared_ptr<Texture> getTile(int tileIndex);
+		Texture& getTile(int tileIndex);
 	private:
-		std::map<int, std::shared_ptr<Texture>> m_tiles;
+		std::vector<std::unique_ptr<Texture>> m_tiles;
 		int m_tileWidth, m_tileHeight;
 };
 

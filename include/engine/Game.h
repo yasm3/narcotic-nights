@@ -3,8 +3,8 @@
 
 #include "Window.h"
 #include "Graphics.h"
+#include "AssetManager.h"
 #include "Input.h"
-#include "GameObject.h"
 #include "Tileset.h"
 #include "Tilemap.h"
 #include "DevMenu.h"
@@ -25,6 +25,7 @@ class Game {
         Window m_window;
         SDL_Renderer* m_renderer;
         Graphics m_graphics;
+        AssetManager m_assetManager;
         Input m_input;
 
         DevMenu m_devMenu;
