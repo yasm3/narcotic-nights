@@ -14,13 +14,16 @@ enum RoomType {
 
 class Room {
     public:
-        Room(std::string name, RoomType roomType);
-        Room(std::string filename);
+        Room(const std::string& filename, Tileset& tileset);
+        Tilemap& getTilemap() const;
     private:
         std::string m_name;
-        RoomType m_roomType;
+        RoomType m_type;
+        Tileset& m_tileset;
+        std::unique_ptr<Tilemap> m_tilemap;
 
-        RoomType strToType(const std::string& roomType);
+        RoomType strToType(const std::string& roomType) const;
+        void loadFromFile(const std::string& filename);
 };
 
 #endif

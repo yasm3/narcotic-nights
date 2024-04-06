@@ -4,12 +4,13 @@
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;
 
-Room::Room(std::string name, RoomType roomType) : m_name(std::move(name)), m_roomType(roomType)
+Room::Room(const std::string& filename, Tileset& tileset) : m_tileset(tileset)
 {
-
+    loadFromFile(filename);
 }
 
-Room::Room(std::string filename)
+/*
+Room::Room(const std::string& filename)
 {
     // parse json file
     std::ifstream roomFile(filename);
@@ -20,8 +21,9 @@ Room::Room(std::string filename)
     m_roomType = strToType(roomData["type"].get<std::string>());
     
 }
+*/
 
-RoomType Room::strToType(const std::string& roomType)
+RoomType Room::strToType(const std::string& roomType) const
 {
     if(roomType == "normal") {
         return RoomType::NORMAL;
@@ -36,4 +38,30 @@ RoomType Room::strToType(const std::string& roomType)
     } else {
         throw std::runtime_error("invalid room type"); 
     }
+}
+
+void Room::loadFromFile(const std::string& filename)
+{
+    std::ifstream roomFile(filename);
+    if (!roomFile.is_open())
+        throw std::runtime_error("Failed to open room file : " + filename);
+    json roomData = json::parse(roomFile);
+    roomFile.close();
+
+    // parse
+
+    m_name = roomData["name"].get<std::string>();
+    m_type = strToType(roomData["type"].get<std::string>());
+
+    int width = roomData["width"].get<int>();
+    int height = roomData["height"].get<int>();
+    std::vector<int> data = roomData["tilemap"].get<std::vector<int>>();
+    std::unique_ptr tilemap = std::make_unique<Tilemap>(width, height, m_tileset, data);
+    m_tilemap = std::move(tilemap);
+}
+
+
+Tilemap& Room::getTilemap() const
+{
+    return *m_tilemap;
 }

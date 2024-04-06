@@ -5,6 +5,14 @@ Tilemap::Tilemap(int width, int height, Tileset& tileset) : m_width(width), m_he
     m_tiles.resize(width * height, 0);
 }
 
+Tilemap::Tilemap(int width, int height, Tileset& tileset, std::vector<int>& data) : m_width(width), m_height(height), m_tileset(tileset)
+{
+    m_tiles.resize(width * height, 0);
+    if (data.size() != width * height)
+        throw std::runtime_error("Invalid size for data tilemap");
+    m_tiles = data;
+}
+
 int Tilemap::getWidth() const
 {
     return m_width;

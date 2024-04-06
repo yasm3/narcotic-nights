@@ -1,5 +1,6 @@
 #include "DevMenu.h"
 #include "Game.h"
+#include "Room.h"
 
 DevMenu::DevMenu(Game& game) : m_game(game), m_showMainMenu(true)
 {}

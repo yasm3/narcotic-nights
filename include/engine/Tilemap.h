@@ -7,6 +7,7 @@
 class Tilemap {
     public:
         Tilemap(int width, int height, Tileset& tileset);
+        Tilemap(int width, int height, Tileset& tileset, std::vector<int>& data);
         int getWidth() const;
         int getHeight() const;
         Tileset& getTileset() const;
