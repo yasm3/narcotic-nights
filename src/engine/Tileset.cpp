@@ -14,6 +14,9 @@ int Tileset::getTileHeight() const
 
 void Tileset::loadFromFile(SDL_Renderer* r, const std::string& filePath, int tilePadding)
 {
+	std::unique_ptr<Texture> defaultTile = std::make_unique<Texture>(r, m_tileWidth, m_tileHeight);
+	m_tiles.push_back(std::move(defaultTile));
+
 	Texture tileset(r, filePath);
 
 	SDL_Rect src;
