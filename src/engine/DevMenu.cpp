@@ -21,8 +21,21 @@ void DevMenu::render()
     ImGuiIO& io = ImGui::GetIO();
     ImGui::Begin("Development Menu");
 
-    ImGui::Text("FPS: %.1f", io.Framerate);
-    ImGui::Text("Window: %dx%d", m_game.m_window.getWidth(), m_game.m_window.getHeight());
+    if (ImGui::CollapsingHeader("Render Infos")) {
+        ImGui::Text("FPS: %.1f", io.Framerate);
+        ImGui::Text("Window: %dx%d", m_game.m_window.getWidth(), m_game.m_window.getHeight());
+
+    }
+
+    if (ImGui::CollapsingHeader("Game State")) {
+        if (ImGui::Button("Playing")) {
+            m_game.m_gamestate = GameState::PLAYING;
+        }
+        ImGui::SameLine();
+        if (ImGui::Button("Room Editor")) {
+            m_game.m_gamestate = GameState::ROOM_EDITOR;
+        }
+    }
 
     ImGui::End();
 }

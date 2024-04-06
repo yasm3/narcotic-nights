@@ -8,6 +8,12 @@
 #include "Tileset.h"
 #include "Tilemap.h"
 #include "DevMenu.h"
+#include "Room.h"
+
+enum GameState {
+    PLAYING,
+    ROOM_EDITOR
+};
 
 class Game {
     public:
@@ -21,6 +27,7 @@ class Game {
     private:
         bool m_running;
         float m_last_frame_time;
+        GameState m_gamestate;
 
         Window m_window;
         SDL_Renderer* m_renderer;
@@ -32,6 +39,7 @@ class Game {
 
         friend class DevMenu;
 
+        Room* room;
 };
 
 #endif

@@ -4,10 +4,12 @@
 #include "Dungeon.h"
 
 Game::Game() : m_running(true),
+               m_gamestate(GameState::PLAYING),
                m_window("Narcotic Nights", 1200, 800),
                m_graphics(&m_window),
                m_renderer(nullptr),
-               m_devMenu(*this)
+               m_devMenu(*this),
+               room(nullptr)
 {}
 
 Game::~Game()
@@ -23,6 +25,8 @@ void Game::init()
 
     m_assetManager.loadTexture("sprite", "assets/img/sprite.png");
     m_assetManager.loadTileset(18, 18, 1, "assets/img/tileset.png");
+
+    room = new Room("assets/room/room0.json", m_assetManager.getTileset());
 }
 
 void Game::cleanup()
@@ -39,8 +43,13 @@ void Game::update()
 void Game::draw()
 {
     m_graphics.clear();
-    m_graphics.draw(&m_assetManager.getTexture("sprite"), 10, 10, 4);
-    m_graphics.draw(&m_assetManager.getTileset().getTile(10), 30, 30);
+    switch (m_gamestate) {
+    case GameState::PLAYING:
+        m_graphics.drawTilemap(room->getTilemap());
+        break;
+    case GameState::ROOM_EDITOR:
+        break;
+    }
 }
 
 void Game::run()
