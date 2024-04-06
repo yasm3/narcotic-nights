@@ -9,7 +9,7 @@ class Input {
         ~Input();
 
         void update();
-        bool isKeyDown(SDL_Scancode key) const;
+        bool isKeyDown(SDL_Scancode key);
     private:
         const Uint8* m_keystate;
 };

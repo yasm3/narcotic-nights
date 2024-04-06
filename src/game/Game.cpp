@@ -73,9 +73,11 @@ void Game::run()
                     m_window.setHeight(e.window.data2);
                 }
                 if(e.type == SDL_KEYDOWN) {
-                    if(e.key.keysym.scancode == SDL_SCANCODE_T) m_devMenu.toggleMenu();
+                    // if(e.key.keysym.scancode == SDL_SCANCODE_T) m_devMenu.toggleMenu();
                 }
             }
+
+            if(m_input.isKeyDown(SDL_SCANCODE_T)) m_devMenu.toggleMenu();
 
             // start ImGUI frame
             ImGui_ImplSDLRenderer2_NewFrame();
