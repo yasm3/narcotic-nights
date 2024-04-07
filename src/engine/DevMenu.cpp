@@ -31,9 +31,17 @@ void DevMenu::render()
         if (ImGui::Button("Playing")) {
             m_game.m_gamestate = GameState::PLAYING;
         }
-        ImGui::SameLine();
-        if (ImGui::Button("Room Editor")) {
-            m_game.m_gamestate = GameState::ROOM_EDITOR;
+    }
+
+    if (ImGui::CollapsingHeader("Tileset")) {
+        Tileset& ts = m_game.m_assetManager.getTileset();
+        for (int i = 0; i < ts.getTilesNumber(); ++i) {
+            if (i % 5 != 0) ImGui::SameLine();
+            ImGui::ImageButton(ts.getTile(i).getNativeTexture(), ImVec2(ts.getTileWidth() * 3, ts.getTileHeight() * 3));
+            if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenDisabled)) {
+                std::string id = "ID " + std::to_string(i);
+                ImGui::SetTooltip(id.c_str());
+            }
         }
     }
 

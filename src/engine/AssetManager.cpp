@@ -20,10 +20,10 @@ Texture& AssetManager::getTexture(const std::string& name)
     return *it->second;
 }
 
-void AssetManager::loadTileset(int tileWidth, int tileHeight, int tilePadding, const std::string& filename)
+void AssetManager::loadTileset(const std::string& filename, int tileWidth, int tileHeight, int tilePadding, int totalWidth, int totalHeight)
 {
     std::unique_ptr<Tileset> tileset = std::make_unique<Tileset>(tileWidth, tileHeight);
-    tileset->loadFromFile(m_renderer, filename, tilePadding);
+    tileset->loadFromFile(m_renderer, filename, tilePadding, totalWidth, totalHeight);
     m_tileset = std::move(tileset);
 }
 

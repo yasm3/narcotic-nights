@@ -12,7 +12,7 @@ int Tileset::getTileHeight() const
 	return m_tileHeight;
 }
 
-void Tileset::loadFromFile(SDL_Renderer* r, const std::string& filePath, int tilePadding)
+void Tileset::loadFromFile(SDL_Renderer* r, const std::string& filePath, int tilePadding, int totalWidth, int totalHeight)
 {
 	std::unique_ptr<Texture> defaultTile = std::make_unique<Texture>(r, m_tileWidth, m_tileHeight);
 	m_tiles.push_back(std::move(defaultTile));
@@ -21,8 +21,8 @@ void Tileset::loadFromFile(SDL_Renderer* r, const std::string& filePath, int til
 
 	SDL_Rect src;
 	SDL_Rect dst;
-	for (int i = 0; i < tileset.getHeight() / m_tileHeight; i++) {
-		for (int j = 0; j < tileset.getWidth() / m_tileWidth; j++) {
+	for (int i = 0; i < totalHeight; i++) {
+		for (int j = 0; j < totalWidth; j++) {
 			std::unique_ptr<Texture> tile = std::make_unique<Texture>(r, m_tileWidth, m_tileHeight);
 			src = {j * m_tileWidth + j * tilePadding, i * m_tileHeight + i * tilePadding, m_tileWidth, m_tileHeight};
 			SDL_SetRenderTarget(r, tile->getNativeTexture());
@@ -36,4 +36,9 @@ void Tileset::loadFromFile(SDL_Renderer* r, const std::string& filePath, int til
 Texture& Tileset::getTile(int tileIndex)
 {
 	return *m_tiles[tileIndex];
+}
+
+int Tileset::getTilesNumber() const
+{
+	return m_tiles.size();
 }

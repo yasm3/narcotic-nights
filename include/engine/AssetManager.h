@@ -15,7 +15,7 @@ class AssetManager {
         void loadTexture(const std::string& name, const std::string& filename);
         Texture& getTexture(const std::string& name);
         
-        void loadTileset(int tileWidth, int tileHeight, int tilePadding, const std::string& filename);
+        void loadTileset(const std::string& filename, int tileWidth, int tileHeight, int tilePadding, int totalWidth, int totalHeight);
         Tileset& getTileset();
     private:
         SDL_Renderer* m_renderer;

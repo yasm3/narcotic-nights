@@ -9,7 +9,7 @@
 
 class Graphics {
     public:
-        Graphics(Window* window);
+        Graphics();
         ~Graphics();
         void attachWindow(Window* window);
 

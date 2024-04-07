@@ -14,8 +14,9 @@ class Tileset {
 		int getTileWidth() const;
 		int getTileHeight() const;
 
-		void loadFromFile(SDL_Renderer* renderer, const std::string& filePath, int tilePadding);
+		void loadFromFile(SDL_Renderer* renderer, const std::string& filePath, int tilePadding, int totalWidth, int totalHeight);
 		Texture& getTile(int tileIndex);
+		int getTilesNumber() const;
 	private:
 		std::vector<std::unique_ptr<Texture>> m_tiles;
 		int m_tileWidth, m_tileHeight;

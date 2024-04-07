@@ -6,7 +6,6 @@
 Game::Game() : m_running(true),
                m_gamestate(GameState::PLAYING),
                m_window("Narcotic Nights", 1200, 800),
-               m_graphics(&m_window),
                m_renderer(nullptr),
                m_devMenu(*this),
                room(nullptr)
@@ -24,7 +23,7 @@ void Game::init()
     m_assetManager.attachRenderer(m_renderer);
 
     m_assetManager.loadTexture("sprite", "assets/img/sprite.png");
-    m_assetManager.loadTileset(18, 18, 1, "assets/img/tileset.png");
+    m_assetManager.loadTileset("assets/img/tileset.png", 18, 18, 1, 20, 9);
 
     room = new Room("assets/room/room0.json", m_assetManager.getTileset());
 }
@@ -46,8 +45,6 @@ void Game::draw()
     switch (m_gamestate) {
     case GameState::PLAYING:
         m_graphics.drawTilemap(room->getTilemap());
-        break;
-    case GameState::ROOM_EDITOR:
         break;
     }
 }

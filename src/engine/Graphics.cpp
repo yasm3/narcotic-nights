@@ -1,6 +1,6 @@
 #include "Graphics.h"
 
-Graphics::Graphics(Window* window) : m_window(nullptr), m_renderer(nullptr) {}
+Graphics::Graphics() : m_window(nullptr), m_renderer(nullptr) {}
 
 Graphics::~Graphics() {}
 

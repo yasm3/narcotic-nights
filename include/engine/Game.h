@@ -11,8 +11,7 @@
 #include "Room.h"
 
 enum GameState {
-    PLAYING,
-    ROOM_EDITOR
+    PLAYING
 };
 
 class Game {
