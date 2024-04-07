@@ -105,12 +105,12 @@ void Window::setHeight(int h)
 
 void Window::toggleFullscreen()
 {
-    Uint32 flag = SDL_WINDOW_FULLSCREEN_DESKTOP;
-    bool isFullScreen = SDL_GetWindowFlags(m_window) & flag;
-    SDL_SetWindowFullscreen(m_window, isFullScreen ? 0 : flag);
-    if (isFullScreen) {
-        SDL_SetWindowSize(m_window, m_width, m_height);
-        SDL_SetWindowPosition(m_window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+    Uint32 flags = SDL_GetWindowFlags(m_window);
+    if (flags & SDL_WINDOW_FULLSCREEN_DESKTOP) {
+        SDL_SetWindowFullscreen(m_window, 0);
+    }
+    else {
+        SDL_SetWindowFullscreen(m_window, SDL_WINDOW_FULLSCREEN_DESKTOP);
     }
 }
 

@@ -9,20 +9,6 @@ Room::Room(const std::string& filename, Tileset& tileset) : m_tileset(tileset)
     loadFromFile(filename);
 }
 
-/*
-Room::Room(const std::string& filename)
-{
-    // parse json file
-    std::ifstream roomFile(filename);
-    json roomData = json::parse(roomFile);
-    roomFile.close();
-
-    m_name = roomData["name"].get<std::string>();
-    m_roomType = strToType(roomData["type"].get<std::string>());
-    
-}
-*/
-
 RoomType Room::strToType(const std::string& roomType) const
 {
     if(roomType == "normal") {

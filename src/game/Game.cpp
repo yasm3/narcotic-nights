@@ -8,12 +8,11 @@ Game::Game() : m_running(true),
                m_window("Narcotic Nights", 1200, 800),
                m_renderer(nullptr),
                m_devMenu(*this),
+               m_last_frame_time(0),
                room(nullptr)
 {}
 
-Game::~Game()
-{
-}
+Game::~Game() {}
 
 void Game::init()
 {

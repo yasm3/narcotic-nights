@@ -24,7 +24,7 @@ void DevMenu::render()
     if (ImGui::CollapsingHeader("Render Infos")) {
         ImGui::Text("FPS: %.1f", io.Framerate);
         ImGui::Text("Window: %dx%d", m_game.m_window.getWidth(), m_game.m_window.getHeight());
-
+        if (ImGui::Button("Toggle Fullscreen")) m_game.m_window.toggleFullscreen();
     }
 
     if (ImGui::CollapsingHeader("Game State")) {

@@ -1,6 +1,6 @@
 #include "Dungeon.h"
 
-Dungeon::Dungeon(std::vector<Room>& poolRooms) : m_currentRoom(0), m_maxHeight(9), m_maxWidth(8), m_poolRooms(poolRooms)
+Dungeon::Dungeon(std::vector<Room>& poolRooms) : m_currentRoom(0), m_maxHeight(9), m_maxWidth(8), m_poolRooms(poolRooms), m_numberRooms(0)
 {
 
 }
