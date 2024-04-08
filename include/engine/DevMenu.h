@@ -8,6 +8,7 @@ class Game;
 class DevMenu {
     public:
         DevMenu(Game& game);
+        ~DevMenu();
         void toggleMenu();
         bool isOpen();
 

@@ -34,11 +34,14 @@ void Game::cleanup()
 
 void Game::update()
 {
-    float deltaTime = (SDL_GetTicks() - m_last_frame_time) / 1000.0;
+    int deltaTime = (SDL_GetTicks() - m_last_frame_time) / 1000.0;
     m_last_frame_time = SDL_GetTicks();
+    m_input.update();
+    m_window.handleEvents();
+    player.update(1000/100, m_input);
 }
 
-void Game::draw()
+void Game::draw(const Tilemap& tm)
 {
     m_graphics.clear();
     switch (m_gamestate) {
@@ -52,12 +55,34 @@ void Game::run()
 {
     try {
         init();
+
+        std::filesystem::path executablePath = std::filesystem::current_path();
+        std::filesystem::path tilesetPath = executablePath / "assets" / "img" / "tileset.png";
+        std::filesystem::path spritePath = executablePath / "assets" / "img" / "sprite.png";
+       
+        Texture PlayerTexture(m_renderer, spritePath.string());
+
+        // Créer le joueur
+        player.setTexture(&PlayerTexture);
+
+        // Créer la tilemap
+        Tileset ts(18, 18);
+        ts.loadFromFile(m_renderer, tilesetPath.string(), 1);
+        Tilemap tm(12, 8, &ts);
+
+        for (int i = 0; i < tm.getHeight(); i++) {
+            for (int j = 0; j < tm.getWidth(); j++) {
+                tm.setTile(j, i, 109);
+            }
+        }
+        
+
         while (m_running)
         {
             // update game logic
             update();
 
-            // process inputs
+            //process inputs
             SDL_Event e;
             while(SDL_PollEvent(&e) != 0)
             {
@@ -82,13 +107,14 @@ void Game::run()
             ImGuiIO& io = ImGui::GetIO();
 
             if(m_devMenu.isOpen()) m_devMenu.render();
-
+            
             // rendering
             ImGui::Render();
             SDL_RenderSetScale(m_renderer, io.DisplayFramebufferScale.x, io.DisplayFramebufferScale.y);
-            draw();
-            ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData());
-            m_graphics.present();
+            ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData());*/
+            
+            draw(tm);
+           
         }
         cleanup();
     }

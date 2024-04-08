@@ -7,6 +7,19 @@ int Tileset::getTileWidth() const
 	return m_tileWidth;
 }
 
+Tileset::~Tileset()
+{
+    // Parcourir chaque texture dans le conteneur m_tiles et la libérer
+    for (auto& pair : m_tiles) {
+        // Utilisation de reset pour libérer la ressource et réinitialiser le shared_ptr
+        pair.second.reset();
+    }
+    // Vider le conteneur m_tiles
+    m_tiles.clear();
+}
+
+
+
 int Tileset::getTileHeight() const
 {
 	return m_tileHeight;

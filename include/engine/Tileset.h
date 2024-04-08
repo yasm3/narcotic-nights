@@ -10,6 +10,7 @@
 class Tileset {
 	public:
 		Tileset(int tileWidth, int tileHeight);
+		~Tileset();
 
 		int getTileWidth() const;
 		int getTileHeight() const;
