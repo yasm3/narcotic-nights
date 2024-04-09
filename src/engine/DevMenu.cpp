@@ -5,8 +5,6 @@
 DevMenu::DevMenu(Game& game) : m_game(game), m_showMainMenu(true)
 {}
 
-DevMenu::~DevMenu(){}
-
 void DevMenu::toggleMenu()
 {
     if(m_showMainMenu) m_showMainMenu = false;
