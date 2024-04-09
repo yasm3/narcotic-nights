@@ -6,21 +6,20 @@
 
 class GameObject {
     public:
-        GameObject(Texture* texture, float x, float y, int w, int h);
-        ~GameObject();
+        GameObject(Texture& texture, int posX, int posY);
 
-        void setTexture(Texture* texture);
+        virtual void update(float deltaTime, Input& input) = 0;
+        virtual void draw(Graphics& graphics) = 0;
+        virtual bool collidesWith(GameObject& other) = 0;
+        virtual void handleCollision(GameObject& other) = 0;
 
-        void draw(Graphics& graphics);
-        void update(Uint32 deltaTime, Input& input);
-    private:
-        float m_x, m_y;
-        float m_dx, m_dy;
-        float m_maxSpeed;
-        float m_accelleration;
-        float m_friction;
+        int getPosX() const;
+        int getPosY() const;
+    protected:
+        int m_x, m_y;
         int m_w, m_h;
-        Texture* m_texture;
+        Texture& m_texture;
+        bool m_visible;
 };
 
 #endif

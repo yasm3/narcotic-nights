@@ -9,6 +9,7 @@
 #include "Tilemap.h"
 #include "DevMenu.h"
 #include "Room.h"
+#include "Player.h"
 
 enum GameState {
     PLAYING
@@ -20,7 +21,7 @@ class Game {
         ~Game();
         void init();
         void cleanup();
-        void update();
+        void update(float deltaTime);
         void draw();
         void run();
     private:
@@ -37,6 +38,8 @@ class Game {
         DevMenu m_devMenu;
 
         friend class DevMenu;
+
+        std::unique_ptr<Player> m_player;
 
         Room* room;
 };
