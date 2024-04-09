@@ -76,7 +76,7 @@ void Graphics::drawTilemap(const Tilemap& tm)
         for (int row = 0; row < tilesNumberWidth; row++) {
             tileX = row * tileWidth * scale + startScreenX;
             tileY = col * tileHeight * scale + startScreenY;
-            draw(&tm.getTile(row, col), tileX, tileY, scale);
+            draw(tm.getTile(row, col), tileX, tileY, scale);
         }
     }
 }

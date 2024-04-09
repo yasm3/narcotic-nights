@@ -16,6 +16,7 @@ class GameObject {
         int getPosY() const;
     protected:
         int m_x, m_y;
+        int m_w, m_h;
         Texture& m_texture;
         bool m_visible;
 };
