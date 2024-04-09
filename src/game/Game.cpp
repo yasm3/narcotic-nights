@@ -21,7 +21,7 @@ void Game::init()
     m_graphics.attachWindow(&m_window);
     m_assetManager.attachRenderer(m_renderer);
 
-    m_assetManager.loadTexture("sprite", "assets/img/sprite.png");
+    m_assetManager.loadTexture("sprite", "assets/img/Sprite1.png");
     m_assetManager.loadTileset("assets/img/tileset.png", 18, 18, 1, 20, 9);
 
     room = new Room("assets/room/room0.json", m_assetManager.getTileset());
