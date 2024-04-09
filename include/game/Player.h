@@ -1,20 +1,19 @@
-#ifndef _PLAYER_H_
-#define _PLAYER_H_
+#ifndef _PLAYER_H
+#define _PLAYER_H
 
-#include "Entity.h"
+#include "GameObject.h"
+#include "Input.h"
 
-class Player : public Entity{
+class Player : public GameObject {
     public:
-        Player(Texture* texture, float x, float y, int w, int h);
-        ~Player();
-
-        void update(Uint32 deltaTime, Input& input) override;
-
+        Player(Texture& texture, int posX, int posY);
+        void update(float deltaTime, Input& input) override;
 
     private:
         float m_dx, m_dy;
-        int score;
-        bool isAlive;
+        float m_maxSpeed;
+        float m_acceleration;
+        float m_friction;
 };
 
 #endif
