@@ -9,7 +9,7 @@ class GameObject {
 
         virtual void update(float deltaTime);
         virtual void draw(Graphics& graphics);
-        virtual bool collidesWith(GameObject& other) = 0;
+        virtual bool collidesWith(GameObject& other);
         virtual void handleCollision(GameObject& other) = 0;
 
         int getPosX() const;
