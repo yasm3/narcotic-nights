@@ -24,7 +24,6 @@ class Window {
         int getHeight() const;
         void setHeight(int height);
         void toggleFullscreen();
-        void handleEvents();
     private:
         bool m_running;
         SDL_Window* m_window;

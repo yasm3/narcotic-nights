@@ -113,8 +113,3 @@ void Window::toggleFullscreen()
         SDL_SetWindowFullscreen(m_window, SDL_WINDOW_FULLSCREEN_DESKTOP);
     }
 }
-
-void Window::handleEvents()
-{
-
-}
