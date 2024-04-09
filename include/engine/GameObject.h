@@ -1,7 +1,6 @@
 #ifndef _GAMEOBJECT_H
 #define _GAMEOBJECT_H
 
-#include <iostream>
 #include "Graphics.h"
 
 class GameObject {
