@@ -4,7 +4,7 @@ Player::Player(Texture& texture, int posX, int posY) :
     GameObject(texture, posX, posY),
     m_dx(0.f),
     m_dy(0.f),
-    m_maxSpeed(1.f)
+    m_maxSpeed(1.f),
     m_acceleration(2.f),
     m_friction(0.95f)
 {}
@@ -26,8 +26,8 @@ void Player::update(float deltaTime, Input& input)
     }
 
     if (abs(m_dx) > m_maxSpeed / 2 && abs(m_dy) > m_maxSpeed / 2) {
-        m_dx *= getFriction();
-        m_dy *= getFriction();
+        m_dx *= m_friction;
+        m_dy *= m_friction;
     }
 
     if (m_dx < -m_maxSpeed) m_dx = -m_maxSpeed;
