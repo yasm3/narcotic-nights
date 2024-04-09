@@ -34,7 +34,6 @@ public:
     float getAcceleration() const { return m_acceleration; }
     float getFriction() const { return m_friction; }
 
-
 protected:
     float m_x, m_y;
     int m_w, m_h;
