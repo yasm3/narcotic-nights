@@ -26,26 +26,26 @@ void Graphics::present()
     SDL_RenderPresent(m_renderer);
 }
 
-void Graphics::draw(const Texture* t, int x, int y)
+void Graphics::draw(const Texture& t, int x, int y)
 {
     SDL_Rect dstRect = { x,y,0,0 };
-    SDL_QueryTexture(t->getNativeTexture(), nullptr, nullptr, &dstRect.w, &dstRect.h);
-    SDL_RenderCopy(m_renderer, t->getNativeTexture(), nullptr, &dstRect);
+    SDL_QueryTexture(t.getNativeTexture(), nullptr, nullptr, &dstRect.w, &dstRect.h);
+    SDL_RenderCopy(m_renderer, t.getNativeTexture(), nullptr, &dstRect);
 }
 
-void Graphics::draw(const Texture* t, int x, int y, int w, int h)
+void Graphics::draw(const Texture& t, int x, int y, int w, int h)
 {
     SDL_Rect dstRect = { x,y,w,h };
-    SDL_RenderCopy(m_renderer, t->getNativeTexture(), nullptr, &dstRect);
+    SDL_RenderCopy(m_renderer, t.getNativeTexture(), nullptr, &dstRect);
 }
 
-void Graphics::draw(const Texture* t, int x, int y, int scale)
+void Graphics::draw(const Texture& t, int x, int y, int scale)
 {
     SDL_Rect dstRect = { x,y,0,0 };
-    SDL_QueryTexture(t->getNativeTexture(), nullptr, nullptr, &dstRect.w, &dstRect.h);
+    SDL_QueryTexture(t.getNativeTexture(), nullptr, nullptr, &dstRect.w, &dstRect.h);
     dstRect.w *= scale;
     dstRect.h *= scale;
-    SDL_RenderCopy(m_renderer, t->getNativeTexture(), nullptr, &dstRect);
+    SDL_RenderCopy(m_renderer, t.getNativeTexture(), nullptr, &dstRect);
 }
 
 void Graphics::drawTilemap(const Tilemap& tm)
