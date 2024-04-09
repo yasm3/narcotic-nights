@@ -2,14 +2,15 @@
 #define _GAMEOBJECT_H
 
 #include "Graphics.h"
+#include "Input.h"
 
 class GameObject {
     public:
         GameObject(Texture& texture, int posX, int posY);
 
-        virtual void update(float deltaTime);
-        virtual void draw(Graphics& graphics);
-        virtual bool collidesWith(GameObject& other);
+        virtual void update(float deltaTime, Input& input) = 0;
+        virtual void draw(Graphics& graphics) = 0;
+        virtual bool collidesWith(GameObject& other) = 0;
         virtual void handleCollision(GameObject& other) = 0;
 
         int getPosX() const;

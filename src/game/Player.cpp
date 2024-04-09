@@ -11,36 +11,20 @@ Player::Player(Texture& texture, int posX, int posY) :
 
 void Player::update(float deltaTime, Input& input)
 {
-    // physique de déplacement simple
-    if (input.isKeyDown(SDL_SCANCODE_RIGHT)) {
-        m_dx += m_acceleration;
-    }
-    if (input.isKeyDown(SDL_SCANCODE_LEFT)) {
-        m_dx -= m_acceleration;
-    }
-    if (input.isKeyDown(SDL_SCANCODE_DOWN)) {
-        m_dy += m_acceleration;
-    }
-    if (input.isKeyDown(SDL_SCANCODE_UP)) {
-        m_dy -= m_acceleration;
-    }
 
-    if (abs(m_dx) > m_maxSpeed / 2 && abs(m_dy) > m_maxSpeed / 2) {
-        m_dx *= m_friction;
-        m_dy *= m_friction;
-    }
+}
 
-    if (m_dx < -m_maxSpeed) m_dx = -m_maxSpeed;
-    if (m_dx > m_maxSpeed) m_dx = m_maxSpeed;
-    if (m_dy < -m_maxSpeed) m_dy = -m_maxSpeed;
-    if (m_dy > m_maxSpeed) m_dy = m_maxSpeed;
+void Player::draw(Graphics& graphics)
+{
+    graphics.draw(m_texture, m_x, m_y, 4);
+}
 
-    m_x += m_dx * deltaTime;
-    m_y += m_dy * deltaTime;
+bool Player::collidesWith(GameObject& other)
+{
+    return false;
+}
 
-    if (abs(m_dx) > 0) m_dx *= m_friction;
-    if (abs(m_dy) > 0) m_dy *= m_friction;
+void Player::handleCollision(GameObject& other)
+{
 
-    if (abs(m_dx) < 0.05) m_dx = 0;
-    if (abs(m_dy) < 0.05) m_dy = 0;
 }
