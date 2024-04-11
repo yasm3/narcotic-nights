@@ -10,7 +10,7 @@ void Input::update()
 
 bool Input::isKeyDown(SDL_Scancode key)
 {
-    m_keystate = SDL_GetKeyboardState(nullptr);
+    // m_keystate = SDL_GetKeyboardState(nullptr);
     if (m_keystate != nullptr)
         if (m_keystate[key]) return true;
     return false;

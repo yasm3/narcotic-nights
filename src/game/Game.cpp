@@ -16,15 +16,18 @@ Game::~Game() {}
 
 void Game::init()
 {
+    std::cout << "Window initialization..." << std::endl;
     m_window.init();
     m_renderer = m_window.getRenderer();
     m_graphics.attachWindow(&m_window);
     m_assetManager.attachRenderer(m_renderer);
 
+    std::cout << "Loading assets..." << std::endl;
     m_assetManager.loadTexture("sprite", "assets/img/Sprite1.png");
     m_assetManager.loadTileset("assets/img/tileset.png", 18, 18, 1, 20, 9);
 
     room = new Room("assets/room/room0.json", m_assetManager.getTileset());
+    std::cout << "Player creation..." << std::endl;
     m_player = std::make_unique<Player>(m_assetManager.getTexture("sprite"), m_window.getWidth()/2, m_window.getHeight()/2);
 }
 
@@ -73,7 +76,10 @@ void Game::run()
                     m_window.setHeight(e.window.data2);
                 }
                 if (e.type == SDL_KEYDOWN) {
-                    // if(e.key.keysym.scancode == SDL_SCANCODE_T) m_devMenu.toggleMenu();
+                    m_input.update();
+                }
+                if (e.type == SDL_KEYUP) {
+                    m_input.update();
                 }
             }
 
