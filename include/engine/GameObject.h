@@ -6,7 +6,7 @@
 
 class GameObject {
     public:
-        GameObject(Texture& texture, int posX, int posY);
+        GameObject(Texture* texture, int posX, int posY);
 
         virtual void update(float deltaTime, Input& input) = 0;
         virtual void draw(Graphics& graphics) = 0;
@@ -15,10 +15,15 @@ class GameObject {
 
         int getPosX() const;
         int getPosY() const;
+        void setPosX(int x);
+        void setPosY(int y);
+
+        void show();
+        void hide();
     protected:
         int m_x, m_y;
         int m_w, m_h;
-        Texture& m_texture;
+        Texture* m_texture;
         bool m_visible;
 };
 

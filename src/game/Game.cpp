@@ -1,15 +1,14 @@
 #include "Game.h"
 #include <iostream>
 #include <filesystem>
-#include "Dungeon.h"
 
 Game::Game() : m_running(true),
-m_gamestate(GameState::PLAYING),
-m_window("Narcotic Nights", 1200, 800),
-m_renderer(nullptr),
-m_devMenu(*this),
-m_last_frame_time(0),
-room(nullptr)
+    m_gamestate(GameState::PLAYING),
+    m_window("Narcotic Nights", 1200, 800),
+    m_renderer(nullptr),
+    m_devMenu(*this),
+    m_last_frame_time(0),
+    room(nullptr)
 {}
 
 Game::~Game() {}
@@ -25,10 +24,11 @@ void Game::init()
     std::cout << "Loading assets..." << std::endl;
     m_assetManager.loadTexture("sprite", "assets/img/Sprite1.png");
     m_assetManager.loadTileset("assets/img/tileset.png", 18, 18, 1, 20, 9);
+    m_assetManager.loadRooms();
 
     room = new Room("assets/room/room0.json", m_assetManager.getTileset());
     std::cout << "Player creation..." << std::endl;
-    m_player = std::make_unique<Player>(m_assetManager.getTexture("sprite"), m_window.getWidth()/2, m_window.getHeight()/2);
+    m_player = std::make_unique<Player>(&m_assetManager.getTexture("sprite"), m_window.getWidth()/2, m_window.getHeight()/2);
 }
 
 void Game::cleanup()
