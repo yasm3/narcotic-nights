@@ -36,7 +36,7 @@ void Room::loadFromFile(const std::string& filename)
 
     // parse
 
-    m_name = roomData["name"].get<std::string>();
+    m_id = roomData["id"].get<int>();
     m_type = strToType(roomData["type"].get<std::string>());
 
     int width = roomData["width"].get<int>();

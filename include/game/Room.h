@@ -17,7 +17,7 @@ class Room {
         Room(const std::string& filename, Tileset& tileset);
         Tilemap& getTilemap() const;
     private:
-        std::string m_name;
+        int m_id;
         RoomType m_type;
         Tileset& m_tileset;
         std::unique_ptr<Tilemap> m_tilemap;
