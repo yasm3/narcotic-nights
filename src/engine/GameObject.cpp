@@ -1,9 +1,18 @@
 #include "GameObject.h"
 
-GameObject::GameObject(Texture* texture, int posX, int posY) : m_texture(texture), m_x(posX), m_y(posY), m_visible(true)
+GameObject::GameObject(Texture* texture, int posX, int posY) : m_texture(texture), m_x(posX), m_y(posY), m_w(0), m_h(0), m_visible(true)
 {
-    m_w = texture->getWidth();
-    m_h = texture->getHeight();
+    if (texture != nullptr) {
+        m_w = texture->getWidth();
+        m_h = texture->getHeight();
+    }
+}
+
+void GameObject::draw(Graphics& graphics)
+{
+    if (m_texture != nullptr && m_visible) {
+        graphics.draw(*m_texture, m_x, m_y);
+    }
 }
 
 int GameObject::getPosX() const
@@ -14,6 +23,13 @@ int GameObject::getPosX() const
 int GameObject::getPosY() const
 {
     return m_y;
+}
+
+void GameObject::setTexture(Texture* texture)
+{
+    m_texture = texture;
+    m_w = texture->getWidth();
+    m_h = texture->getHeight();
 }
 
 void GameObject::setPosX(int x)

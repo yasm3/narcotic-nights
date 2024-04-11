@@ -6,7 +6,7 @@
 
 class Player : public GameObject {
     public:
-        Player(Texture& texture, int posX, int posY);
+        Player(Texture* texture, int posX, int posY);
         void update(float deltaTime, Input& input) override;
         void draw(Graphics& graphics) override;
         bool collidesWith(GameObject& other) override;

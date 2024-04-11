@@ -8,6 +8,7 @@ Game::Game() : m_running(true),
     m_renderer(nullptr),
     m_devMenu(*this),
     m_last_frame_time(0),
+    m_player(nullptr, 0, 0),
     room(nullptr)
 {}
 
@@ -23,12 +24,18 @@ void Game::init()
 
     std::cout << "Loading assets..." << std::endl;
     m_assetManager.loadTexture("sprite", "assets/img/Sprite1.png");
+    m_assetManager.loadTexture("door", "assets/img/door.png");
     m_assetManager.loadTileset("assets/img/tileset.png", 18, 18, 1, 20, 9);
     m_assetManager.loadRooms();
 
     room = new Room("assets/room/room0.json", m_assetManager.getTileset());
+    room->loadDoors(m_assetManager.getTexture("door"));
     std::cout << "Player creation..." << std::endl;
-    m_player = std::make_unique<Player>(&m_assetManager.getTexture("sprite"), m_window.getWidth()/2, m_window.getHeight()/2);
+
+    m_player.setTexture(&m_assetManager.getTexture("sprite"));
+    m_player.setPosX(m_window.getWidth() / 2);
+    m_player.setPosY(m_window.getHeight() / 2);
+
 }
 
 void Game::cleanup()
@@ -38,7 +45,7 @@ void Game::cleanup()
 
 void Game::update(float deltaTime)
 {
-    m_player->update(deltaTime, m_input);
+    m_player.update(deltaTime, m_input);
 }
 
 void Game::draw()
@@ -47,7 +54,8 @@ void Game::draw()
     switch (m_gamestate) {
     case GameState::PLAYING:
         m_graphics.drawTilemap(room->getTilemap());
-        m_player->draw(m_graphics);
+        m_player.draw(m_graphics);
+        
         break;
     }
 }

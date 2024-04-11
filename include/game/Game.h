@@ -39,7 +39,7 @@ class Game {
 
         friend class DevMenu;
 
-        std::unique_ptr<Player> m_player;
+        Player m_player;
 
         Room* room;
 };

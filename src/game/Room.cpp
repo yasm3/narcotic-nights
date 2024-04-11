@@ -2,9 +2,15 @@
 #include <fstream>
 #include <iostream>
 #include <nlohmann/json.hpp>
+
 using json = nlohmann::json;
 
-Room::Room(const std::string& filename, Tileset& tileset) : m_tileset(tileset)
+Room::Room(const std::string& filename, Tileset& tileset) :
+    m_tileset(tileset),
+    m_leftDoor(nullptr),
+    m_rightDoor(nullptr),
+    m_upDoor(nullptr),
+    m_downDoor(nullptr)
 {
     loadFromFile(filename);
 }
@@ -50,4 +56,36 @@ void Room::loadFromFile(const std::string& filename)
 Tilemap& Room::getTilemap() const
 {
     return *m_tilemap;
+}
+
+int Room::getID() const
+{
+    return m_id;
+}
+
+void Room::loadDoors(Texture& texture)
+{
+    m_leftDoor.setTexture(&texture);
+    m_rightDoor.setTexture(&texture);
+    m_upDoor.setTexture(&texture);
+    m_downDoor.setTexture(&texture);
+    m_leftDoor.setActive(true);
+}
+
+void Room::openDoor(RoomDirection direction)
+{
+    switch (direction) {
+    case RoomDirection::LEFT:
+        m_leftDoor.setActive(true);
+        break;
+    case RoomDirection::UP:
+        m_upDoor.setActive(true);
+        break;
+    case RoomDirection::RIGHT:
+        m_rightDoor.setActive(true);
+        break;
+    case RoomDirection::DOWN:
+        m_downDoor.setActive(true);
+        break;
+    }
 }

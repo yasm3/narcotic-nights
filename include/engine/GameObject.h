@@ -9,12 +9,13 @@ class GameObject {
         GameObject(Texture* texture, int posX, int posY);
 
         virtual void update(float deltaTime, Input& input) = 0;
-        virtual void draw(Graphics& graphics) = 0;
+        virtual void draw(Graphics& graphics);
         virtual bool collidesWith(GameObject& other) = 0;
         virtual void handleCollision(GameObject& other) = 0;
 
         int getPosX() const;
         int getPosY() const;
+        void setTexture(Texture* texture);
         void setPosX(int x);
         void setPosY(int y);
 
