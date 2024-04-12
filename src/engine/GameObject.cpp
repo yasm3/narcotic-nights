@@ -15,3 +15,15 @@ int GameObject::getPosY() const
 {
     return m_y;
 }
+
+int GameObject::getWidth() const
+{
+    return m_w;
+}
+
+int GameObject::getHeight() const
+{
+    return m_h;
+}
+
+void GameObject::setPosition(int x, int y) {m_x = x; m_y = y;}

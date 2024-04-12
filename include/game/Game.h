@@ -10,6 +10,9 @@
 #include "DevMenu.h"
 #include "Room.h"
 #include "Player.h"
+#include "Enemy.h"
+#include "Projectile.h"
+#include <algorithm>
 
 enum GameState {
     PLAYING
@@ -40,6 +43,8 @@ class Game {
         friend class DevMenu;
 
         std::unique_ptr<Player> m_player;
+        std::unique_ptr<Enemy> m_enemy;  
+        std::vector<std::unique_ptr<Projectile>> m_projectiles;
 
         Room* room;
 };

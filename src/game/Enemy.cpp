@@ -13,7 +13,7 @@ void Enemy::update(float deltaTime, Input& m_input,const GameObject* OtherObject
    
 
     // Récupérer la position actuelle du joueur
-    float playerX = OtherObject->getPosX();
+    /*float playerX = OtherObject->getPosX();
     float playerY = OtherObject->getPosY();
 
 
@@ -27,15 +27,15 @@ void Enemy::update(float deltaTime, Input& m_input,const GameObject* OtherObject
         dy /= distance;
     }
 
-    setPosition(getPosX() + dx * m_maxSpeed * deltaTime, getPosY() + dy * m_maxSpeed * deltaTime);
+    setPosition(getPosX() + dx * m_maxSpeed * deltaTime, getPosY() + dy * m_maxSpeed * deltaTime);*/
 }
 
 void Enemy::draw(Graphics& graphics)
 {
-    graphics.draw(m_texture, m_x, m_y, 150, 150);
+    graphics.draw(m_texture, m_x, m_y, 70, 95);
 }
 
-bool Enemy::collidesWith(GameObject& other)
+bool Enemy::collidesWith(const GameObject& other)
 {
     return false;
 }
