@@ -9,7 +9,7 @@ Game::Game() : m_running(true),
     m_devMenu(*this),
     m_last_frame_time(0),
     m_player(nullptr, 0, 0),
-    m_dungeon(9, 9, m_assetManager, m_graphics)
+    m_dungeon(15, 15, m_assetManager, m_graphics)
 {}
 
 Game::~Game() {}
@@ -37,9 +37,9 @@ void Game::init()
     m_dungeon.addRoom("assets/room/room0.json");
     m_dungeon.addRoom("assets/room/room1.json");
     m_dungeon.addRoom("assets/room/room2.json");
+    m_dungeon.addRoom("assets/room/room3.json");
 
-    m_dungeon.setRoom(1, 1, 2);
-    m_dungeon.setRoom(1, 2, 1);
+    m_dungeon.randomGenerate(6);
     m_dungeon.printText();
 }
 

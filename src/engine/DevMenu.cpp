@@ -73,6 +73,10 @@ void DevMenu::render()
             dun.move(Direction::DOWN);
         }
 
+        if (ImGui::Button("Random Generate")) {
+            dun.randomGenerate(6);
+        }
+
         // print dungeon
         ImVec4 col;
         for (int j = 0; j < dun.getHeight(); ++j) {

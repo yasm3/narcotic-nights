@@ -18,6 +18,7 @@ class Dungeon {
         void move(Direction direction);
 
         void addRoom(const std::string& filename);
+        void randomGenerate(int maxRooms);
 
         void drawCurrentRoom() const;
         void printText() const;
