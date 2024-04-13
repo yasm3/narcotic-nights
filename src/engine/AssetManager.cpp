@@ -17,9 +17,8 @@ void AssetManager::loadTexture(const std::string& name, const std::string& filen
 Texture& AssetManager::getTexture(const std::string& name) const
 {
     auto it = m_textures.find(name);
-    if(it == m_textures.end()) {
+    if(it == m_textures.end())
         throw std::runtime_error("Texture not found: " + name);
-    }
     return *it->second;
 }
 
@@ -35,22 +34,3 @@ Tileset& AssetManager::getTileset() const
     return *m_tileset;
 }
 
-void AssetManager::loadRooms()
-{
-    std::string roomFolder = "assets/room";
-    if (fs::exists(roomFolder) && fs::is_directory(roomFolder)) {
-        for (const auto& entry : fs::directory_iterator(roomFolder)) {
-            std::unique_ptr<Room> room = std::make_unique<Room>(entry.path().string(), getTileset());
-            m_rooms.push_back(std::move(room));
-        }
-    }
-    else {
-        throw std::runtime_error("Room folder not found");
-    }
-    
-}
-
-const std::vector<std::unique_ptr<Room>>& AssetManager::getRooms() const
-{
-    return m_rooms;
-}

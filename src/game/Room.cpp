@@ -10,7 +10,9 @@ Room::Room(const std::string& filename, Tileset& tileset) :
     m_leftDoor(nullptr),
     m_rightDoor(nullptr),
     m_upDoor(nullptr),
-    m_downDoor(nullptr)
+    m_downDoor(nullptr),
+    m_id(-1),
+    m_type(RoomType::NORMAL)
 {
     loadFromFile(filename);
 }
@@ -19,15 +21,17 @@ RoomType Room::strToType(const std::string& roomType) const
 {
     if(roomType == "normal") {
         return RoomType::NORMAL;
-    } else if(roomType == "treasure") {
+    }
+    else if (roomType == "treasure") {
         return RoomType::TREASURE;
-    } else if(roomType == "shop") {
-        return RoomType::SHOP;
-    } else if(roomType == "secret") {
+    }
+    else if(roomType == "secret") {
         return RoomType::SECRET;
-    } else if(roomType == "boss") {
+    }
+    else if(roomType == "boss") {
         return RoomType::BOSS;
-    } else {
+    }
+    else {
         throw std::runtime_error("invalid room type"); 
     }
 }
@@ -48,12 +52,12 @@ void Room::loadFromFile(const std::string& filename)
     int width = roomData["width"].get<int>();
     int height = roomData["height"].get<int>();
     std::vector<int> data = roomData["tilemap"].get<std::vector<int>>();
-    std::unique_ptr tilemap = std::make_unique<Tilemap>(width, height, m_tileset, data);
+    std::shared_ptr tilemap = std::make_shared<Tilemap>(width, height, m_tileset, data);
     m_tilemap = std::move(tilemap);
 }
 
 
-Tilemap& Room::getTilemap() const
+const Tilemap& Room::getTilemap() const
 {
     return *m_tilemap;
 }
@@ -72,19 +76,19 @@ void Room::loadDoors(Texture& texture)
     m_leftDoor.setActive(true);
 }
 
-void Room::openDoor(RoomDirection direction)
+void Room::openDoor(Direction direction)
 {
     switch (direction) {
-    case RoomDirection::LEFT:
+    case Direction::LEFT:
         m_leftDoor.setActive(true);
         break;
-    case RoomDirection::UP:
+    case Direction::UP:
         m_upDoor.setActive(true);
         break;
-    case RoomDirection::RIGHT:
+    case Direction::RIGHT:
         m_rightDoor.setActive(true);
         break;
-    case RoomDirection::DOWN:
+    case Direction::DOWN:
         m_downDoor.setActive(true);
         break;
     }

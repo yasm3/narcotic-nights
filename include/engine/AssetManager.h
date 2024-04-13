@@ -19,13 +19,12 @@ class AssetManager {
         void loadTileset(const std::string& filename, int tileWidth, int tileHeight, int tilePadding, int totalWidth, int totalHeight);
         Tileset& getTileset() const;
 
-        void loadRooms();
-        const std::vector<std::unique_ptr<Room>>& getRooms() const;
+        
     private:
         SDL_Renderer* m_renderer;
         std::unordered_map<std::string, std::unique_ptr<Texture>> m_textures;
         std::unique_ptr<Tileset> m_tileset;
-        std::vector<std::unique_ptr<Room>> m_rooms;
+        std::unordered_map<int, std::unique_ptr<Room>> m_rooms;
 };
 
 #endif

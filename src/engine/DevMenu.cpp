@@ -45,5 +45,52 @@ void DevMenu::render()
         }
     }
 
+    if (ImGui::CollapsingHeader("Dungeon")) {
+        Dungeon& dun = m_game.m_dungeon;
+
+        // print actual room
+        ImGui::Text("X: %d", dun.getCurrentX());
+        ImGui::SameLine();
+        ImGui::Text("Y: %d", dun.getCurrentY());
+
+        // move in dungeon
+        if (ImGui::Button("Left")) {
+            dun.move(Direction::LEFT);
+        }
+
+        ImGui::SameLine();
+        if (ImGui::Button("Right")) {
+            dun.move(Direction::RIGHT);
+        }
+
+        ImGui::SameLine();
+        if (ImGui::Button("Up")) {
+            dun.move(Direction::UP);
+        }
+
+        ImGui::SameLine();
+        if (ImGui::Button("Down")) {
+            dun.move(Direction::DOWN);
+        }
+
+        // print dungeon
+        ImVec4 col;
+        for (int j = 0; j < dun.getHeight(); ++j) {
+            for (int i = 0; i < dun.getWidth(); ++i) {
+                int roomId = dun.getRoomId(i, j);
+
+                if (roomId == -1) col = ImVec4(255, 0, 0, 255);
+                else col = ImVec4(0, 255, 0, 255);
+
+                if (i == dun.getCurrentX() && j == dun.getCurrentY()) col = ImVec4(255, 0, 255, 255);
+
+                std::string labelButton = "Room " + std::to_string(roomId);
+                ImGui::ColorButton(labelButton.c_str(), col);
+                ImGui::SameLine();
+            }
+            ImGui::NewLine();
+        }
+    }
+
     ImGui::End();
 }

@@ -5,6 +5,7 @@
 
 class DoorObject : public GameObject {
     public:
+        DoorObject();
         DoorObject(Texture* texture);
         void update(float deltaTime, Input& input);
         void draw(Graphics& graphics);

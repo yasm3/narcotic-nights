@@ -1,5 +1,10 @@
 #include "DoorObject.h"
 
+DoorObject::DoorObject() : GameObject(nullptr, 0, 0), m_active(false)
+{
+
+}
+
 DoorObject::DoorObject(Texture* texture) : GameObject(texture, 0, 0), m_active(false)
 {
 }

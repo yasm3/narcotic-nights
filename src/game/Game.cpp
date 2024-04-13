@@ -4,12 +4,12 @@
 
 Game::Game() : m_running(true),
     m_gamestate(GameState::PLAYING),
-    m_window("Narcotic Nights", 1200, 800),
+    m_window("Narcotic Nights", 1200, 1000),
     m_renderer(nullptr),
     m_devMenu(*this),
     m_last_frame_time(0),
     m_player(nullptr, 0, 0),
-    room(nullptr)
+    m_dungeon(9, 9, m_assetManager, m_graphics)
 {}
 
 Game::~Game() {}
@@ -26,16 +26,21 @@ void Game::init()
     m_assetManager.loadTexture("sprite", "assets/img/Sprite1.png");
     m_assetManager.loadTexture("door", "assets/img/door.png");
     m_assetManager.loadTileset("assets/img/tileset.png", 18, 18, 1, 20, 9);
-    m_assetManager.loadRooms();
 
-    room = new Room("assets/room/room0.json", m_assetManager.getTileset());
-    room->loadDoors(m_assetManager.getTexture("door"));
+    // player init
     std::cout << "Player creation..." << std::endl;
-
     m_player.setTexture(&m_assetManager.getTexture("sprite"));
     m_player.setPosX(m_window.getWidth() / 2);
     m_player.setPosY(m_window.getHeight() / 2);
 
+    // dungeon
+    m_dungeon.addRoom("assets/room/room0.json");
+    m_dungeon.addRoom("assets/room/room1.json");
+    m_dungeon.addRoom("assets/room/room2.json");
+
+    m_dungeon.setRoom(1, 1, 2);
+    m_dungeon.setRoom(1, 2, 1);
+    m_dungeon.printText();
 }
 
 void Game::cleanup()
@@ -53,9 +58,8 @@ void Game::draw()
     m_graphics.clear();
     switch (m_gamestate) {
     case GameState::PLAYING:
-        m_graphics.drawTilemap(room->getTilemap());
+        m_dungeon.drawCurrentRoom();
         m_player.draw(m_graphics);
-        
         break;
     }
 }
