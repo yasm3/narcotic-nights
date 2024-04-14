@@ -93,3 +93,12 @@ void Graphics::drawTilemap(const Tilemap& tm)
         }
     }
 }
+
+void Graphics::drawRectangle(Vector2D<int> position, Vector2D<int> dimensions, int r, int g, int b)
+{
+    SDL_SetRenderDrawColor(m_renderer, r, g, b, 255);
+    dimensions = dimensions * m_scale;
+    SDL_Rect rect = { position.x, position.y, dimensions.x, dimensions.y };
+    SDL_RenderDrawRect(m_renderer, &rect);
+    SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
+}

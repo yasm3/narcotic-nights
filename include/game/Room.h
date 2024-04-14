@@ -4,6 +4,7 @@
 #include <string>
 #include "Tilemap.h"
 #include "GameObject.h"
+#include "Player.h"
 
 enum RoomType {
     NORMAL,
@@ -20,6 +21,8 @@ class Room {
         int getID() const;
         void addGameObject(std::shared_ptr<GameObject> object);
         void draw(Graphics& graphics);
+        void update(Player& player);
+        Vector2D<int> changeRoom();
     private:
         int m_id;
         RoomType m_type;

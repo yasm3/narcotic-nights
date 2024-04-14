@@ -8,7 +8,7 @@ Game::Game() : m_running(true),
     m_renderer(nullptr),
     m_devMenu(*this),
     m_last_frame_time(0),
-    m_player(nullptr, Vector2D<int>(0)),
+    m_player(nullptr, Vector2D<int>(0), m_graphics),
     m_dungeon(9, 6, m_assetManager, m_graphics)
 {}
 
@@ -48,6 +48,7 @@ void Game::cleanup()
 void Game::update(float deltaTime)
 {
     m_player.update(deltaTime, m_input);
+    m_dungeon.update(m_player);
 }
 
 void Game::draw()
@@ -56,7 +57,7 @@ void Game::draw()
     switch (m_gamestate) {
     case GameState::PLAYING:
         m_dungeon.draw();
-        m_player.draw(m_graphics);
+        m_player.draw();
         break;
     }
 }

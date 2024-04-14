@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <nlohmann/json.hpp>
+#include "DoorObject.h"
 
 using json = nlohmann::json;
 
@@ -72,6 +73,22 @@ void Room::draw(Graphics& graphics)
 {
     graphics.drawTilemap(*m_tilemap);
     for (auto& object : m_gameObjects) {
-        object->draw(graphics);
+        object->draw();
     }
+}
+
+void Room::update(Player& player)
+{
+    for (auto& object : m_gameObjects) {
+        if (DoorObject* door = dynamic_cast<DoorObject*>(object.get())) {
+            if (door->collidesWith(player)) {
+                door->handleCollision(player);
+            }
+        }
+    }
+}
+
+Vector2D<int> Room::changeRoom()
+{
+    return Vector2D<int>();
 }

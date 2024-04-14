@@ -1,7 +1,7 @@
 #include "Player.h"
 
-Player::Player(Texture* texture, Vector2D<int> position) :
-    GameObject(texture, position),
+Player::Player(Texture* texture, Vector2D<int> position, Graphics& graphics) :
+    GameObject(texture, position, graphics),
     m_dx(0.f),
     m_dy(0.f),
     m_maxSpeed(1.f),
@@ -14,19 +14,7 @@ void Player::update(float deltaTime, Input& input)
 
 }
 
-void Player::draw(Graphics& graphics)
-{
-    if (m_texture != nullptr) {
-        graphics.draw(*m_texture, m_position.x, m_position.y, 4);
-    }
-}
-
 bool Player::collidesWith(GameObject& other)
 {
     return false;
-}
-
-void Player::handleCollision(GameObject& other)
-{
-
 }

@@ -6,11 +6,9 @@
 
 class Player : public GameObject {
     public:
-        Player(Texture* texture, Vector2D<int> position);
+        Player(Texture* texture, Vector2D<int> position, Graphics& graphics);
         void update(float deltaTime, Input& input) override;
-        void draw(Graphics& graphics) override;
         bool collidesWith(GameObject& other) override;
-        void handleCollision(GameObject& other) override;
     private:
         float m_dx, m_dy;
         float m_maxSpeed;

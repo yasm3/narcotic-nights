@@ -21,11 +21,13 @@ class Dungeon {
         int getRoomId(Vector2D<int> pos) const;
         void setRoom(Vector2D<int> pos, int roomId);
         bool move(Direction direction);
+        bool move(Vector2D<int> newPos);
 
         int addRoom(int id);
         void randomGenerate(int maxRooms);
 
         void draw();
+        void update(Player& player);
         void printText() const;
     private:
 
@@ -44,7 +46,6 @@ class Dungeon {
         bool isOverEdge(Vector2D<int> pos) const;
         int generateRandomNumber(int min, int max);
         int getAvailableRoom() const;
-        Vector2D<int> getDoorPosition(Direction direction) const;
         Direction oppositeDirection(Direction direction) const;
 
         friend class DevMenu;

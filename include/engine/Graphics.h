@@ -6,6 +6,7 @@
 #include "Window.h"
 #include "Texture.h"
 #include "Tilemap.h"
+#include "Vector2D.h"
 
 class Graphics {
     public:
@@ -25,6 +26,7 @@ class Graphics {
         void draw(const Texture& texture, int x, int y, int w, int h);
         void draw(const Texture& texture, int x, int y, int scale);
         void drawTilemap(const Tilemap& tilemap);
+        void drawRectangle(Vector2D<int> position, Vector2D<int> dimensions, int r, int g, int b);
     private:
         Window* m_window;
         SDL_Renderer* m_renderer;

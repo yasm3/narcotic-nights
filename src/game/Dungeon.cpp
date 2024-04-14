@@ -36,6 +36,15 @@ bool Dungeon::move(Direction direction)
     return false;
 }
 
+bool Dungeon::move(Vector2D<int> newPos)
+{
+    if (!isOverEdge(newPos)) {
+        m_currentPos = newPos;
+        return true;
+    }
+    return false;
+}
+
 int Dungeon::addRoom(int id)
 {
     std::string filename = "assets/room/room" + std::to_string(id) + ".json";
@@ -62,19 +71,22 @@ void Dungeon::randomGenerate(int maxRooms)
     std::queue<int> roomQueue;
     for (int i = 0; i < maxRooms; ++i) {
         int roomId = generateRandomNumber(1, getAvailableRoom() - 1);
-        std::cout << roomId << " ";
         roomQueue.push(roomId);
     }
-    std::cout << std::endl;
 
     // place rooms
     while (!roomQueue.empty()) {
         Direction directionToGo = static_cast<Direction>(generateRandomNumber(0, 3));
         Vector2D<int> currentPos = m_currentPos;
         if (move(directionToGo) && !isOccupied(m_currentPos)) {
+
             setRoom(m_currentPos, addRoom(roomQueue.front()));
-            m_rooms[getRoomId(currentPos)].addGameObject(std::make_shared<DoorObject>(m_assetManager.getTexture("door").get(), getDoorPosition(directionToGo)));
-            m_rooms[getRoomId(m_currentPos)].addGameObject(std::make_shared<DoorObject>(m_assetManager.getTexture("door").get(), getDoorPosition(oppositeDirection(directionToGo))));
+
+            std::shared_ptr<DoorObject> firstDoor = std::make_shared<DoorObject>(m_assetManager.getTexture("door").get(), directionToGo, m_currentPos, m_graphics, *this);
+            std::shared_ptr<DoorObject> nextDoor = std::make_shared<DoorObject>(m_assetManager.getTexture("door").get(), oppositeDirection(directionToGo), currentPos, m_graphics, *this);
+   
+            m_rooms[getRoomId(currentPos)].addGameObject(std::move(firstDoor));
+            m_rooms[getRoomId(m_currentPos)].addGameObject(std::move(nextDoor));
             roomQueue.pop();
         }
     }
@@ -89,6 +101,15 @@ void Dungeon::draw()
     if (roomId != -1) {
         assert(roomId < m_rooms.size());
         m_rooms[roomId].draw(m_graphics);
+    }
+}
+
+void Dungeon::update(Player& player)
+{
+    int roomId = getRoomId(m_currentPos);
+    if (roomId != -1) {
+        assert(roomId < m_rooms.size());
+        m_rooms[roomId].update(player);
     }
 }
 
@@ -147,24 +168,6 @@ int Dungeon::getAvailableRoom() const
     return count;
 }
 
-Vector2D<int> Dungeon::getDoorPosition(Direction direction) const
-{
-    int windowWidth = m_graphics.getWindow()->getWidth();
-    int windowHeight = m_graphics.getWindow()->getHeight();
-    switch (direction) {
-    case Direction::LEFT:
-        return Vector2D<int>(0, windowHeight / 2);
-    case Direction::UP:
-        return Vector2D<int>(windowWidth / 2, 0);
-    case Direction::RIGHT:
-        return Vector2D<int>(windowWidth - 90, windowHeight / 2);
-    case Direction::DOWN:
-        return Vector2D<int>(windowWidth / 2, windowHeight - 90);
-    default:
-        return Vector2D<int>(0);
-    }
-}
-
 Direction Dungeon::oppositeDirection(Direction direction) const
 {
     switch (direction) {
@@ -176,5 +179,8 @@ Direction Dungeon::oppositeDirection(Direction direction) const
         return Direction::LEFT;
     case Direction::DOWN:
         return Direction::UP;
+    default:
+        return direction;
     }
 }
+
