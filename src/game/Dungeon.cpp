@@ -68,11 +68,26 @@ void Dungeon::randomGenerate(int maxRooms)
     setRoom(m_currentPos, addRoom(0));   
 
     // queue of room to place
+    bool isTreasurePlaced = false;
     std::queue<int> roomQueue;
     for (int i = 0; i < maxRooms; ++i) {
-        int roomId = generateRandomNumber(1, getAvailableRoom() - 1);
+        int roomId;
+        if (generateRandomNumber(0, 100) < 25 && !isTreasurePlaced) {
+            roomId = 2;
+            isTreasurePlaced = true;
+        }
+        else {
+            roomId = generateRandomNumber(3, getAvailableRoom() - 1);
+        }
         roomQueue.push(roomId);
+        std::cout << roomId << " ";
     }
+    if (!isTreasurePlaced) {
+        roomQueue.pop();
+        roomQueue.push(2);
+        std::cout << 2;
+    }
+    std::cout << std::endl;
 
     // place rooms
     while (!roomQueue.empty()) {
@@ -168,7 +183,7 @@ int Dungeon::getAvailableRoom() const
     return count;
 }
 
-Direction Dungeon::oppositeDirection(Direction direction) const
+Direction Dungeon::oppositeDirection(Direction direction)
 {
     switch (direction) {
     case Direction::LEFT:

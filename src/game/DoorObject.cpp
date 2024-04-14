@@ -20,7 +20,9 @@ void DoorObject::handleCollision(Player& player)
 {
     std::cout << "porte: collision avec un joueur" << std::endl;
     std::cout << m_destination << std::endl;
+    player.setPosition(getNextPlayerPosition(Dungeon::oppositeDirection(m_direction)));
     m_dungeon.move(m_destination);
+    std::cout << static_cast<int>(m_direction) << std::endl;
 }
 
 void DoorObject::setActive(bool active)
@@ -48,5 +50,21 @@ Vector2D<int> DoorObject::getDoorPosition(Direction direction) const
         return Vector2D<int>(windowWidth / 2, windowHeight - 90);
     default:
         return Vector2D<int>(0);
+    }
+}
+
+Vector2D<int> DoorObject::getNextPlayerPosition(Direction direction) const
+{
+    int windowWidth = m_graphics.getWindow()->getWidth();
+    int windowHeight = m_graphics.getWindow()->getHeight();
+    switch (direction) {
+    case Direction::LEFT:
+        return Vector2D<int>(150, windowHeight / 2);
+    case Direction::UP:
+        return Vector2D<int>(windowWidth / 2, 150);
+    case Direction::RIGHT:
+        return Vector2D<int>(windowWidth - 250, windowHeight / 2);
+    case Direction::DOWN:
+        return Vector2D<int>(windowWidth / 2, windowHeight - 250);
     }
 }

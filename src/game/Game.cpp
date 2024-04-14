@@ -66,6 +66,7 @@ void Game::run()
 {
     try {
         init();
+        float desiredDelta = 1000 / 60;
         while (m_running)
         {
             float deltaTime = (SDL_GetTicks() - m_last_frame_time) / 1000.0;
@@ -109,6 +110,10 @@ void Game::run()
             draw();
             ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData());
             m_graphics.present();
+
+            if (deltaTime < desiredDelta) {
+                SDL_Delay(desiredDelta - deltaTime);
+            }
         }
         cleanup();
     }

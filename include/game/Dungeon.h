@@ -29,6 +29,7 @@ class Dungeon {
         void draw();
         void update(Player& player);
         void printText() const;
+        static Direction oppositeDirection(Direction direction);
     private:
 
         // private data
@@ -46,7 +47,6 @@ class Dungeon {
         bool isOverEdge(Vector2D<int> pos) const;
         int generateRandomNumber(int min, int max);
         int getAvailableRoom() const;
-        Direction oppositeDirection(Direction direction) const;
 
         friend class DevMenu;
 };

@@ -13,6 +13,7 @@ class DoorObject : public GameObject {
         void setActive(bool active);
         Vector2D<int> getDestination() const;
         Vector2D<int> getDoorPosition(Direction direction) const;
+        Vector2D<int> getNextPlayerPosition(Direction direction) const;
     private:
         bool m_active;
         Vector2D<int> m_destination;

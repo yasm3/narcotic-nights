@@ -10,10 +10,11 @@ class Player : public GameObject {
         void update(float deltaTime, Input& input) override;
         bool collidesWith(GameObject& other) override;
     private:
-        float m_dx, m_dy;
+        Vector2D<float> m_speed;
         float m_maxSpeed;
         float m_acceleration;
         float m_friction;
+        float mid(float first, float second, float third);
 };
 
 #endif
