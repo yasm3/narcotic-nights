@@ -1,45 +1,35 @@
 #include "GameObject.h"
 
-GameObject::GameObject(Texture* texture, int posX, int posY) : m_texture(texture), m_x(posX), m_y(posY), m_w(0), m_h(0), m_visible(true)
+GameObject::GameObject(Texture* texture, Vector2D<int> position) : m_texture(texture), m_position(position), m_size(0), m_visible(true)
 {
     if (texture != nullptr) {
-        m_w = texture->getWidth();
-        m_h = texture->getHeight();
+        m_size.x = texture->getWidth();
+        m_size.y = texture->getHeight();
     }
 }
 
 void GameObject::draw(Graphics& graphics)
 {
     if (m_texture != nullptr && m_visible) {
-        graphics.draw(*m_texture, m_x, m_y);
+        graphics.draw(*m_texture, m_position.x, m_position.y);
     }
-}
-
-int GameObject::getPosX() const
-{
-    return m_x;
-}
-
-int GameObject::getPosY() const
-{
-    return m_y;
 }
 
 void GameObject::setTexture(Texture* texture)
 {
     m_texture = texture;
-    m_w = texture->getWidth();
-    m_h = texture->getHeight();
+    m_size.x = texture->getWidth();
+    m_size.y = texture->getHeight();
 }
 
-void GameObject::setPosX(int x)
+Vector2D<int> GameObject::getPosition() const
 {
-    m_x = x;
+    return m_position;
 }
 
-void GameObject::setPosY(int y)
+void GameObject::setPosition(Vector2D<int> newPosition)
 {
-    m_y = y;
+    m_position = newPosition;
 }
 
 void GameObject::show()

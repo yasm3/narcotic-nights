@@ -1,6 +1,6 @@
 {
     "id": 2,
-    "type": "normal",
+    "type": "treasure",
     "width": 12,
     "height":  9,
     "tilemap": [

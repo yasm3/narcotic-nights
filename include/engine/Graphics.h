@@ -16,6 +16,9 @@ class Graphics {
         void clear();
         void clear(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
         void present();
+        int getScale() const;
+        void setScale(int newScale);
+        const Window* getWindow() const;
 
         // Drawing methods
         void draw(const Texture& texture, int x, int y);
@@ -25,6 +28,7 @@ class Graphics {
     private:
         Window* m_window;
         SDL_Renderer* m_renderer;
+        int m_scale;
 };
 
 #endif

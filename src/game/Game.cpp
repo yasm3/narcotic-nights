@@ -8,8 +8,8 @@ Game::Game() : m_running(true),
     m_renderer(nullptr),
     m_devMenu(*this),
     m_last_frame_time(0),
-    m_player(nullptr, 0, 0),
-    m_dungeon(15, 15, m_assetManager, m_graphics)
+    m_player(nullptr, Vector2D<int>(0)),
+    m_dungeon(9, 6, m_assetManager, m_graphics)
 {}
 
 Game::~Game() {}
@@ -20,27 +20,24 @@ void Game::init()
     m_window.init();
     m_renderer = m_window.getRenderer();
     m_graphics.attachWindow(&m_window);
+    m_graphics.setScale(5);
     m_assetManager.attachRenderer(m_renderer);
 
     std::cout << "Loading assets..." << std::endl;
-    m_assetManager.loadTexture("sprite", "assets/img/Sprite1.png");
-    m_assetManager.loadTexture("door", "assets/img/door.png");
-    m_assetManager.loadTileset("assets/img/tileset.png", 18, 18, 1, 20, 9);
+    m_assetManager.loadTexture("sprite", "data/img/Sprite1.png");
+    m_assetManager.loadTexture("door", "data/img/door.png");
+    m_assetManager.loadTileset("data/img/tileset.png", 18, 18, 1, 20, 9);
+
+    m_window.setWidth(12 * m_assetManager.getTileset().getTileWidth() * m_graphics.getScale());
+    m_window.setHeight(9 * m_assetManager.getTileset().getTileHeight() * m_graphics.getScale());
 
     // player init
     std::cout << "Player creation..." << std::endl;
-    m_player.setTexture(&m_assetManager.getTexture("sprite"));
-    m_player.setPosX(m_window.getWidth() / 2);
-    m_player.setPosY(m_window.getHeight() / 2);
+    m_player.setTexture(m_assetManager.getTexture("sprite").get());
+    m_player.setPosition(Vector2D<int>(m_window.getWidth() / 2, m_window.getHeight() / 2));
 
     // dungeon
-    m_dungeon.addRoom("assets/room/room0.json");
-    m_dungeon.addRoom("assets/room/room1.json");
-    m_dungeon.addRoom("assets/room/room2.json");
-    m_dungeon.addRoom("assets/room/room3.json");
-
-    m_dungeon.randomGenerate(6);
-    m_dungeon.printText();
+    m_dungeon.randomGenerate(10);
 }
 
 void Game::cleanup()
@@ -58,7 +55,7 @@ void Game::draw()
     m_graphics.clear();
     switch (m_gamestate) {
     case GameState::PLAYING:
-        m_dungeon.drawCurrentRoom();
+        m_dungeon.draw();
         m_player.draw(m_graphics);
         break;
     }

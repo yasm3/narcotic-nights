@@ -5,8 +5,7 @@
 
 class DoorObject : public GameObject {
     public:
-        DoorObject();
-        DoorObject(Texture* texture);
+        DoorObject(Texture* texture, Vector2D<int> pos);
         void update(float deltaTime, Input& input);
         void draw(Graphics& graphics);
         bool collidesWith(GameObject& other);

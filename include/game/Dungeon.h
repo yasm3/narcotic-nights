@@ -2,33 +2,52 @@
 #define _DUNGEON_H
 
 #include <vector>
+#include <random>
 #include "AssetManager.h"
+#include "DevMenu.h"
+#include "Vector2D.h"
+
+enum class Direction {
+    LEFT,
+    UP,
+    RIGHT,
+    DOWN
+};
 
 class Dungeon {
     public:
         Dungeon(int width, int height, AssetManager& assetManager, Graphics& graphics);
 
-        int getWidth() const;
-        int getHeight() const;
-        int getCurrentX() const;
-        int getCurrentY() const;
+        int getRoomId(Vector2D<int> pos) const;
+        void setRoom(Vector2D<int> pos, int roomId);
+        bool move(Direction direction);
 
-        int getRoomId(int x, int y) const;
-        void setRoom(int x, int y, int roomId);
-        void move(Direction direction);
-
-        void addRoom(const std::string& filename);
+        int addRoom(int id);
         void randomGenerate(int maxRooms);
 
-        void drawCurrentRoom() const;
+        void draw();
         void printText() const;
     private:
+
+        // private data
         std::vector<std::vector<int>> m_roomsGrid;
         std::vector<Room> m_rooms;
-        int m_width, m_height;
+        Vector2D<int> m_size;
+        Vector2D<int> m_currentPos;
         AssetManager& m_assetManager;
         Graphics& m_graphics;
-        int m_currentX, m_currentY;
+        std::mt19937 m_mt;
+
+        // private methods
+        Vector2D<int> getMoveVec(Direction direction) const;
+        bool isOccupied(Vector2D<int> pos) const;
+        bool isOverEdge(Vector2D<int> pos) const;
+        int generateRandomNumber(int min, int max);
+        int getAvailableRoom() const;
+        Vector2D<int> getDoorPosition(Direction direction) const;
+        Direction oppositeDirection(Direction direction) const;
+
+        friend class DevMenu;
 };
 
 #endif

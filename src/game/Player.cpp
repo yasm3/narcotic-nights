@@ -1,7 +1,7 @@
 #include "Player.h"
 
-Player::Player(Texture* texture, int posX, int posY) :
-    GameObject(texture, posX, posY),
+Player::Player(Texture* texture, Vector2D<int> position) :
+    GameObject(texture, position),
     m_dx(0.f),
     m_dy(0.f),
     m_maxSpeed(1.f),
@@ -17,7 +17,7 @@ void Player::update(float deltaTime, Input& input)
 void Player::draw(Graphics& graphics)
 {
     if (m_texture != nullptr) {
-        graphics.draw(*m_texture, m_x, m_y, 4);
+        graphics.draw(*m_texture, m_position.x, m_position.y, 4);
     }
 }
 

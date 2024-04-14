@@ -49,9 +49,9 @@ void DevMenu::render()
         Dungeon& dun = m_game.m_dungeon;
 
         // print actual room
-        ImGui::Text("X: %d", dun.getCurrentX());
+        ImGui::Text("X: %d", dun.m_currentPos.x);
         ImGui::SameLine();
-        ImGui::Text("Y: %d", dun.getCurrentY());
+        ImGui::Text("Y: %d", dun.m_currentPos.y);
 
         // move in dungeon
         if (ImGui::Button("Left")) {
@@ -74,22 +74,24 @@ void DevMenu::render()
         }
 
         if (ImGui::Button("Random Generate")) {
-            dun.randomGenerate(6);
+            dun.randomGenerate(10);
         }
 
         // print dungeon
         ImVec4 col;
-        for (int j = 0; j < dun.getHeight(); ++j) {
-            for (int i = 0; i < dun.getWidth(); ++i) {
-                int roomId = dun.getRoomId(i, j);
+        for (int j = 0; j < dun.m_size.y; ++j) {
+            for (int i = 0; i < dun.m_size.x; ++i) {
+                int roomId = dun.getRoomId(Vector2D<int>(i,j));
 
-                if (roomId == -1) col = ImVec4(255, 0, 0, 255);
+                if (roomId == -1) col = ImVec4(0, 0, 0, 255);
+                else if (roomId == 0) col = ImVec4(255, 255, 255, 255); // intro room (white)
+                else if (roomId == 1) col = ImVec4(255, 0, 0, 255); // boss room (red)
+                else if (roomId == 2) col = ImVec4(0, 0, 255, 255); // treasure room (blue)
                 else col = ImVec4(0, 255, 0, 255);
 
-                if (i == dun.getCurrentX() && j == dun.getCurrentY()) col = ImVec4(255, 0, 255, 255);
+                if (i == dun.m_currentPos.x && j == dun.m_currentPos.y) col = ImVec4(255, 0, 255, 255);
 
-                std::string labelButton = "Room " + std::to_string(roomId);
-                ImGui::ColorButton(labelButton.c_str(), col);
+                ImGui::ColorButton("Room", col);
                 ImGui::SameLine();
             }
             ImGui::NewLine();

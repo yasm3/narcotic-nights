@@ -7,10 +7,6 @@ using json = nlohmann::json;
 
 Room::Room(const std::string& filename, Tileset& tileset) :
     m_tileset(tileset),
-    m_leftDoor(nullptr),
-    m_rightDoor(nullptr),
-    m_upDoor(nullptr),
-    m_downDoor(nullptr),
     m_id(-1),
     m_type(RoomType::NORMAL)
 {
@@ -52,7 +48,7 @@ void Room::loadFromFile(const std::string& filename)
     int width = roomData["width"].get<int>();
     int height = roomData["height"].get<int>();
     std::vector<int> data = roomData["tilemap"].get<std::vector<int>>();
-    std::shared_ptr tilemap = std::make_shared<Tilemap>(width, height, m_tileset, data);
+    std::unique_ptr tilemap = std::make_unique<Tilemap>(width, height, m_tileset, data);
     m_tilemap = std::move(tilemap);
 }
 
@@ -67,29 +63,15 @@ int Room::getID() const
     return m_id;
 }
 
-void Room::loadDoors(Texture& texture)
+void Room::addGameObject(std::shared_ptr<GameObject> object)
 {
-    m_leftDoor.setTexture(&texture);
-    m_rightDoor.setTexture(&texture);
-    m_upDoor.setTexture(&texture);
-    m_downDoor.setTexture(&texture);
-    m_leftDoor.setActive(true);
+    m_gameObjects.push_back(object);
 }
 
-void Room::openDoor(Direction direction)
+void Room::draw(Graphics& graphics)
 {
-    switch (direction) {
-    case Direction::LEFT:
-        m_leftDoor.setActive(true);
-        break;
-    case Direction::UP:
-        m_upDoor.setActive(true);
-        break;
-    case Direction::RIGHT:
-        m_rightDoor.setActive(true);
-        break;
-    case Direction::DOWN:
-        m_downDoor.setActive(true);
-        break;
+    graphics.drawTilemap(*m_tilemap);
+    for (auto& object : m_gameObjects) {
+        object->draw(graphics);
     }
 }

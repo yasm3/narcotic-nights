@@ -20,6 +20,6 @@ add_executable(narcoticnights ${ENGINE_SOURCES} ${GAME_SOURCES} ${IMGUI_SOURCES}
 
 target_link_libraries(narcoticnights PRIVATE SDL2::SDL2 SDL2::SDL2main SDL2_image::SDL2_image nlohmann_json::nlohmann_json)
 
-# Copy assets to build folder
-file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR})
-message(STATUS "Assets copied to build folder")
+# Copy data to build folder
+file(COPY ${CMAKE_SOURCE_DIR}/data DESTINATION ${CMAKE_BINARY_DIR})
+message(STATUS "Data copied to build folder")

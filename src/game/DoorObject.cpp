@@ -1,12 +1,8 @@
 #include "DoorObject.h"
 
-DoorObject::DoorObject() : GameObject(nullptr, 0, 0), m_active(false)
+DoorObject::DoorObject(Texture* texture, Vector2D<int> pos) : GameObject(texture, pos), m_active(false)
 {
 
-}
-
-DoorObject::DoorObject(Texture* texture) : GameObject(texture, 0, 0), m_active(false)
-{
 }
 
 void DoorObject::update(float deltaTime, Input& input)
@@ -17,7 +13,7 @@ void DoorObject::draw(Graphics& graphics)
 {
     if (m_texture != nullptr && m_active == true)
         std::cout << "left door" << std::endl;
-        graphics.draw(*m_texture, m_x, m_y);
+        graphics.draw(*m_texture, m_position.x, m_position.y, graphics.getScale());
 }
 
 bool DoorObject::collidesWith(GameObject& other)
