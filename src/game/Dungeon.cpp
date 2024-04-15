@@ -88,6 +88,7 @@ void Dungeon::randomGenerate(int maxRooms)
         roomQueue.push(2);
         std::cout << 2;
     }
+    roomQueue.push(1);
     std::cout << std::endl;
 
     // place rooms

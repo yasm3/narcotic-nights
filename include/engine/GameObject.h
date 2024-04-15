@@ -12,9 +12,11 @@ class GameObject {
         virtual void update(float deltaTime, Input& input) = 0;
         virtual void draw();
         virtual bool collidesWith(GameObject& other);
+        virtual void handleCollision(GameObject& other) = 0;
 
         void setTexture(Texture* texture);
         Vector2D<int> getPosition() const;
+        Vector2D<int> getSize() const;
         void setPosition(Vector2D<int> newPosition);
 
         void show();

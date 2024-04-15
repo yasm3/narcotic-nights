@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "ColliderObject.h"
 
 Player::Player(Texture* texture, Vector2D<int> position, Graphics& graphics) :
     GameObject(texture, position, graphics),
@@ -11,17 +12,23 @@ Player::Player(Texture* texture, Vector2D<int> position, Graphics& graphics) :
 void Player::update(float deltaTime, Input& input)
 {
     if (input.isKeyDown(SDL_SCANCODE_UP)) {
-        m_position.y -= m_acceleration;
+        if (!m_blocked) m_position.y -= m_acceleration;
+        else m_position.y += m_acceleration * 7.f;
     }
-    if (input.isKeyDown(SDL_SCANCODE_DOWN)) {
-        m_position.y += m_acceleration;
+    else if (input.isKeyDown(SDL_SCANCODE_DOWN)) {
+        if (!m_blocked) m_position.y += m_acceleration;
+        else m_position.y -= m_acceleration * 7.f;
     }
-    if (input.isKeyDown(SDL_SCANCODE_LEFT)) {
-        m_position.x -= m_acceleration;
+    else if (input.isKeyDown(SDL_SCANCODE_LEFT)) {
+        if (!m_blocked)m_position.x -= m_acceleration;
+        else m_position.x += m_acceleration * 7.f;
     }
-    if (input.isKeyDown(SDL_SCANCODE_RIGHT)) {
-        m_position.x += m_acceleration;
+    else if (input.isKeyDown(SDL_SCANCODE_RIGHT)) {
+        if (!m_blocked) m_position.x += m_acceleration;
+        else m_position.x -= m_acceleration * 7.f;
     }
+
+    m_blocked = false;
 
     /*
     m_position.x += m_speed.x;
@@ -65,9 +72,11 @@ void Player::update(float deltaTime, Input& input)
     if (abs(m_speed.y) < 0.02) m_speed.y = 0; */
 }
 
-bool Player::collidesWith(GameObject& other)
+void Player::handleCollision(GameObject& other)
 {
-    return false;
+    if (ColliderObject* colliderObjectPtr = dynamic_cast<ColliderObject*>(&other)) {
+        m_blocked = true;
+    }
 }
 
 float Player::mid(float first, float second, float third)

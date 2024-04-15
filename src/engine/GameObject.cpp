@@ -41,6 +41,11 @@ Vector2D<int> GameObject::getPosition() const
     return m_position;
 }
 
+Vector2D<int> GameObject::getSize() const
+{
+    return m_size;
+}
+
 void GameObject::setPosition(Vector2D<int> newPosition)
 {
     m_position = newPosition;

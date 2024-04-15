@@ -24,16 +24,16 @@ void Game::init()
     m_assetManager.attachRenderer(m_renderer);
 
     std::cout << "Loading assets..." << std::endl;
-    m_assetManager.loadTexture("sprite", "data/img/Sprite1.png");
+    m_assetManager.loadTexture("player", "data/img/player.png");
     m_assetManager.loadTexture("door", "data/img/door.png");
-    m_assetManager.loadTileset("data/img/tileset.png", 18, 18, 1, 20, 9);
+    m_assetManager.loadTileset("data/img/tileset.png", 18, 18, 1, 4, 1);
 
     m_window.setWidth(12 * m_assetManager.getTileset().getTileWidth() * m_graphics.getScale());
     m_window.setHeight(9 * m_assetManager.getTileset().getTileHeight() * m_graphics.getScale());
 
     // player init
     std::cout << "Player creation..." << std::endl;
-    m_player.setTexture(m_assetManager.getTexture("sprite").get());
+    m_player.setTexture(m_assetManager.getTexture("player").get());
     m_player.setPosition(Vector2D<int>(m_window.getWidth() / 2, m_window.getHeight() / 2));
 
     // dungeon

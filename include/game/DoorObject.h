@@ -8,7 +8,7 @@ class DoorObject : public GameObject {
     public:
         DoorObject(Texture* texture, Direction direction, Vector2D<int> destination, Graphics& graphics, Dungeon& dungeon);
         void update(float deltaTime, Input& input);
-        void handleCollision(Player& player);
+        void handleCollision(GameObject& other);
 
         void setActive(bool active);
         Vector2D<int> getDestination() const;

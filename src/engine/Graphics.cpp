@@ -81,7 +81,7 @@ void Graphics::drawTilemap(const Tilemap& tm)
     int startScreenY = centerY - (tilesNumberHeight * tileHeight * m_scale) / 2;
 
     int tileX, tileY;
-
+   
     for (int col = 0; col < tilesNumberHeight; col++) {
         for (int row = 0; row < tilesNumberWidth; row++) {
             tileX = row * tileWidth * m_scale;

@@ -8,7 +8,6 @@ DoorObject::DoorObject(Texture* texture, Direction direction, Vector2D<int> dest
     m_destination(destination),
     m_dungeon(dungeon)
 {
-    showHitbox(true);
     setPosition(getDoorPosition(direction));
 }
 
@@ -16,13 +15,12 @@ void DoorObject::update(float deltaTime, Input& input)
 {
 }
 
-void DoorObject::handleCollision(Player& player)
+void DoorObject::handleCollision(GameObject& other)
 {
-    std::cout << "porte: collision avec un joueur" << std::endl;
-    std::cout << m_destination << std::endl;
-    player.setPosition(getNextPlayerPosition(Dungeon::oppositeDirection(m_direction)));
-    m_dungeon.move(m_destination);
-    std::cout << static_cast<int>(m_direction) << std::endl;
+    if (Player* player = dynamic_cast<Player*>(&other)) {
+        player->setPosition(getNextPlayerPosition(Dungeon::oppositeDirection(m_direction)));
+        m_dungeon.move(m_destination);
+    }
 }
 
 void DoorObject::setActive(bool active)
@@ -41,9 +39,9 @@ Vector2D<int> DoorObject::getDoorPosition(Direction direction) const
     int windowHeight = m_graphics.getWindow()->getHeight();
     switch (direction) {
     case Direction::LEFT:
-        return Vector2D<int>(0, windowHeight / 2);
+        return Vector2D<int>(10, windowHeight / 2);
     case Direction::UP:
-        return Vector2D<int>(windowWidth / 2, 0);
+        return Vector2D<int>(windowWidth / 2, 10);
     case Direction::RIGHT:
         return Vector2D<int>(windowWidth - 90, windowHeight / 2);
     case Direction::DOWN:
@@ -59,9 +57,9 @@ Vector2D<int> DoorObject::getNextPlayerPosition(Direction direction) const
     int windowHeight = m_graphics.getWindow()->getHeight();
     switch (direction) {
     case Direction::LEFT:
-        return Vector2D<int>(150, windowHeight / 2);
+        return Vector2D<int>(250, windowHeight / 2);
     case Direction::UP:
-        return Vector2D<int>(windowWidth / 2, 150);
+        return Vector2D<int>(windowWidth / 2, 250);
     case Direction::RIGHT:
         return Vector2D<int>(windowWidth - 250, windowHeight / 2);
     case Direction::DOWN:
