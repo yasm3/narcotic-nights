@@ -35,6 +35,7 @@ RoomType Room::strToType(const std::string& roomType) const
 
 void Room::loadFromFile(const std::string& filename)
 {
+    std::cout << "Loading room from " + filename << std::endl;
     std::ifstream roomFile(filename);
     if (!roomFile.is_open())
         throw std::runtime_error("Failed to open room file : " + filename);

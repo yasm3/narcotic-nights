@@ -67,4 +67,5 @@ Vector2D<int> DoorObject::getNextPlayerPosition(Direction direction) const
     case Direction::DOWN:
         return Vector2D<int>(windowWidth / 2, windowHeight - 250);
     }
+    return Vector2D<int>(0);
 }

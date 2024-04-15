@@ -47,7 +47,7 @@ bool Dungeon::move(Vector2D<int> newPos)
 
 int Dungeon::addRoom(int id)
 {
-    std::string filename = "assets/room/room" + std::to_string(id) + ".json";
+    std::string filename = "data/room/room" + std::to_string(id) + ".json";
     m_rooms.push_back(Room(filename, m_assetManager.getTileset()));
     return m_rooms.size() - 1;
 }

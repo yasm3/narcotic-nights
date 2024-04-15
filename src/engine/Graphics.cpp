@@ -71,9 +71,6 @@ void Graphics::drawTilemap(const Tilemap& tm)
     int tilesNumberWidth = tm.getWidth();
     int tilesNumberHeight = tm.getHeight();
 
-    int mapWidth = tilesNumberWidth * tileWidth;
-    int mapHeight = tilesNumberHeight * tileHeight;
-
     int windowWidth = m_window->getWidth();
     int windowHeight = m_window->getHeight();
 
@@ -87,8 +84,8 @@ void Graphics::drawTilemap(const Tilemap& tm)
 
     for (int col = 0; col < tilesNumberHeight; col++) {
         for (int row = 0; row < tilesNumberWidth; row++) {
-            tileX = row * tileWidth * m_scale + 0;
-            tileY = col * tileHeight * m_scale + 0;
+            tileX = row * tileWidth * m_scale;
+            tileY = col * tileHeight * m_scale;
             draw(tm.getTile(row, col), tileX, tileY, m_scale);
         }
     }

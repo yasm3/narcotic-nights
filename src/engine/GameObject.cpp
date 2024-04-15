@@ -26,6 +26,7 @@ bool GameObject::collidesWith(GameObject& other)
     if (AABBCollision(other)) {
         return true;
     }
+    return false;
 }
 
 void GameObject::setTexture(Texture* texture)

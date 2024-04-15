@@ -29,8 +29,7 @@ class Window {
         SDL_Window* m_window;
         SDL_Renderer* m_renderer;
         std::string m_title;
-        int m_width;
-        int m_height;
+        int m_width, m_height = 0;
 };
 
 #endif
