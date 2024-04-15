@@ -4,6 +4,11 @@
 #include "GameObject.h"
 #include "AssetManager.h"
 
+/**
+ * @class ColliderObject
+ * 
+ * @brief Objet de jeu invisible pour delimiter la map
+ */
 class ColliderObject : public GameObject {
 	public:
 		ColliderObject(Vector2D<int> position, Vector2D<int> size, Graphics& graphics);

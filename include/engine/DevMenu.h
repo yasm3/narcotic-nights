@@ -5,13 +5,18 @@
 
 class Game;
 
+/**
+ * @class DevMenu
+ * 
+ * @brief Classe permettant d'afficher un menu de développement (touche T), utile pour le debug
+ */
 class DevMenu {
     public:
         DevMenu(Game& game);
-        void toggleMenu();
-        bool isOpen();
+        void toggleMenu(); ///< Afficher/cache menu
+        bool isOpen(); ///< Etat
 
-        void render();
+        void render(); ///< Rendre le menu
     private:
         Game& m_game;
         bool m_showMainMenu;

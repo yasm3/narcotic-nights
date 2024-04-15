@@ -5,6 +5,7 @@
 #include "Tilemap.h"
 #include "GameObject.h"
 #include "Player.h"
+#include "AssetManager.h"
 
 enum RoomType {
     NORMAL,
@@ -12,6 +13,13 @@ enum RoomType {
     SECRET,
     BOSS
 };
+
+/**
+ * @class Room
+ * 
+ * @brief Represente une salle du donjon
+ * 
+ */
 
 class Room {
     public:
@@ -21,7 +29,7 @@ class Room {
         int getID() const;
         void addGameObject(std::shared_ptr<GameObject> object);
         void draw(Graphics& graphics);
-        void update(int deltaTime, Input& input, Player& player);
+        void update(int deltaTime, Input& input, Player& player, AssetManager& assetManager, Graphics& graphics);
         void addColliders(Graphics& graphics);
     private:
         int m_id;

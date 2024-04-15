@@ -1,9 +1,9 @@
 #include "MobObject.h"
+#include "Player.h"
 
 MobObject::MobObject(Texture* texture, Vector2D<int> position, Graphics& graphics) :
 	GameObject(texture, position, graphics)
 {
-	showHitbox(true);
 }
 
 void MobObject::update(float deltaTime, Input& input)
@@ -27,5 +27,8 @@ void MobObject::update(float deltaTime, Input& input)
 
 void MobObject::handleCollision(GameObject& other)
 {
-	
+	if (Player* player = dynamic_cast<Player*>(&other)) {
+		float newHp = player->getHp() - 0.1;
+		if (newHp > 0) player->setHp(newHp);
+	}
 }

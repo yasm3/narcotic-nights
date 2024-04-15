@@ -41,6 +41,13 @@ const Window* Graphics::getWindow() const
     return m_window;
 }
 
+Vector2D<int> Graphics::getMousePos() const
+{
+    Vector2D<int> pos(0);
+    SDL_GetMouseState(&pos.x, &pos.y);
+    return pos;
+}
+
 void Graphics::draw(const Texture& t, int x, int y)
 {
     SDL_Rect dstRect = { x,y,0,0 };

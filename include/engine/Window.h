@@ -8,6 +8,12 @@
 #include "imgui_impl_sdl2.h"
 #include "imgui_impl_sdlrenderer2.h"
 
+/**
+ * @class Window
+ * 
+ * @brief Classe representant la fenêtre du jeu (abstrait la SDL)
+ * 
+ */
 class Window {
     public:
         Window(const std::string& title, int width, int height);

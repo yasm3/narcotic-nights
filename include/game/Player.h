@@ -4,11 +4,19 @@
 #include "GameObject.h"
 #include "Input.h"
 
+/**
+ * @class Player
+ * 
+ * @brief Represente le joueur (comme un GameObject)
+ * 
+ */
 class Player : public GameObject {
     public:
         Player(Texture* texture, Vector2D<int> position, Graphics& graphics);
         void update(float deltaTime, Input& input) override;
         void handleCollision(GameObject& other);
+        int getHp() const;
+        void setHp(int newHp);
     private:
         Vector2D<float> m_speed;
         float m_maxSpeed;

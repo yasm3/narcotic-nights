@@ -4,6 +4,11 @@
 #include "GameObject.h"
 #include <random>
 
+/**
+ * @class MobObject
+ * 
+ * @brief Represente les mobs simples du Dungeon
+ */
 class MobObject : public GameObject {
 	public:
 		MobObject(Texture* texture, Vector2D<int> position, Graphics& graphics);

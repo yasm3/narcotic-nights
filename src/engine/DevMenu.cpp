@@ -49,6 +49,7 @@ void DevMenu::render()
         Player& player = m_game.m_player;
         int posX = player.getPosition().x;
         int posY = player.getPosition().y;
+        float hp = player.getHp();
 
         if (ImGui::Button("Show Hitbox")) {
             player.showHitbox(true);
@@ -64,6 +65,10 @@ void DevMenu::render()
 
         if (ImGui::SliderInt("Position Y", &posY, 0, m_game.m_window.getHeight())) {
             player.setPosition(Vector2D<int>(posX, posY));
+        }
+
+        if (ImGui::SliderFloat("HP", &hp, 0, 100)) {
+            player.setHp(hp);
         }
     }
 

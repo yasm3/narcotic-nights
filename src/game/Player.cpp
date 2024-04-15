@@ -79,6 +79,17 @@ void Player::handleCollision(GameObject& other)
     }
 }
 
+int Player::getHp() const
+{
+    return m_hp;
+}
+
+void Player::setHp(int newHp)
+{
+    assert(newHp >= 0 && newHp <= 100);
+    m_hp = newHp;
+}
+
 float Player::mid(float first, float second, float third)
 {
     if ((first <= second && first >= third) || (first >= second && first <= third))

@@ -4,6 +4,13 @@
 #include <iostream>
 #include <stdexcept>
 
+/**
+ * @class Vector2D
+ * 
+ * @brief Classe utilitaire pour representer des vecteurs à deux dimensions (utilisant un template)
+ * 
+ * @tparam T 
+ */
 template<typename T>
 class Vector2D {
     public:

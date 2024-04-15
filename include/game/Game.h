@@ -13,9 +13,15 @@
 #include "Dungeon.h"
 
 enum GameState {
-    PLAYING
+    PLAYING,
+    MAINMENU
 };
 
+/**
+ * @class Game
+ * 
+ * @brief Classe métier gérant tout le jeu
+ */
 class Game {
     public:
         Game();

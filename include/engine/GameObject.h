@@ -6,6 +6,12 @@
 #include "Vector2D.h"
 #include <random>
 
+/**
+ * @class GameObject
+ * 
+ * @brief Classe abstraite dont hérite tous les objets du jeu
+ * 
+ */
 class GameObject {
     public:
         GameObject(Texture* texture, Vector2D<int> position, Graphics& graphics);

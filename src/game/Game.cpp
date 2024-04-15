@@ -27,6 +27,9 @@ void Game::init()
     m_assetManager.loadTexture("player", "data/img/player.png");
     m_assetManager.loadTexture("door", "data/img/door.png");
     m_assetManager.loadTexture("mob", "data/img/mob.png");
+    m_assetManager.loadTexture("bullet", "data/img/bullet.png");
+    m_assetManager.loadTexture("emptyHeart", "data/img/emptyHeart.png");
+    m_assetManager.loadTexture("fullHeart", "data/img/fullHeart.png");
     m_assetManager.loadTileset("data/img/tileset.png", 18, 18, 1, 4, 1);
 
     m_window.setWidth(12 * m_assetManager.getTileset().getTileWidth() * m_graphics.getScale());
@@ -59,6 +62,26 @@ void Game::draw()
     case GameState::PLAYING:
         m_dungeon.draw();
         m_player.draw();
+        if (m_player.getHp() >= 80) {
+            m_graphics.draw(*m_assetManager.getTexture("fullHeart"), 2, 2, m_graphics.getScale());
+            m_graphics.draw(*m_assetManager.getTexture("fullHeart"), 20 * m_graphics.getScale(), 2, m_graphics.getScale());
+            m_graphics.draw(*m_assetManager.getTexture("fullHeart"), 40 * m_graphics.getScale(), 2, m_graphics.getScale());
+        }
+        else if (m_player.getHp() >= 40 && m_player.getHp() <= 80) {
+            m_graphics.draw(*m_assetManager.getTexture("fullHeart"), 2, 2, m_graphics.getScale());
+            m_graphics.draw(*m_assetManager.getTexture("fullHeart"), 20 * m_graphics.getScale(), 2, m_graphics.getScale());
+            m_graphics.draw(*m_assetManager.getTexture("emptyHeart"), 40 * m_graphics.getScale(), 2, m_graphics.getScale());
+        }
+        else if (m_player.getHp() >= 0 && m_player.getHp() <= 40) {
+            m_graphics.draw(*m_assetManager.getTexture("fullHeart"), 2, 2, m_graphics.getScale());
+            m_graphics.draw(*m_assetManager.getTexture("emptyHeart"), 20 * m_graphics.getScale(), 2, m_graphics.getScale());
+            m_graphics.draw(*m_assetManager.getTexture("emptyHeart"), 40 * m_graphics.getScale(), 2, m_graphics.getScale());
+        }
+        else {
+            SDL_Delay(2000);
+            std::cout << "Game Over" << std::endl;
+            m_running = false;
+        }
         break;
     }
 }

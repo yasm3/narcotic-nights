@@ -6,19 +6,23 @@
 #include <memory>
 #include "Texture.h"
 #include "Tileset.h"
-#include "Room.h"
 #include "SDL2/SDL.h"
 
+/**
+ * @class AssetManager
+ * 
+ * @brief Classe permettant de gérer les assets du jeu
+ */
 class AssetManager {
     public:
-        void attachRenderer(SDL_Renderer* renderer);
+        void attachRenderer(SDL_Renderer* renderer); ///< Permet de lier le renderer
         
-        void loadTexture(const std::string& name, const std::string& filename);
-        Texture& getTexture(const std::string& name) const;
-        std::shared_ptr<Texture> getTexture(const std::string& name);
+        void loadTexture(const std::string& name, const std::string& filename); ///< Permet de charger une texture à partir d'un fichier avec un nom unique
+        Texture& getTexture(const std::string& name) const; ///< Obtenir une réference vers la texture
+        std::shared_ptr<Texture> getTexture(const std::string& name); ///< Obtenir un pointeur vers la texture 
         
-        void loadTileset(const std::string& filename, int tileWidth, int tileHeight, int tilePadding, int totalWidth, int totalHeight);
-        Tileset& getTileset() const;
+        void loadTileset(const std::string& filename, int tileWidth, int tileHeight, int tilePadding, int totalWidth, int totalHeight); ///< Charger un tileset
+        Tileset& getTileset() const; ///< Obtenir réference du tileset
         
     private:
         SDL_Renderer* m_renderer;

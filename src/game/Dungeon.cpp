@@ -140,7 +140,7 @@ void Dungeon::update(int deltaTime, Input& input, Player& player)
     int roomId = getRoomId(m_currentPos);
     if (roomId != -1) {
         assert(roomId < m_rooms.size());
-        m_rooms[roomId].update(deltaTime, input, player);
+        m_rooms[roomId].update(deltaTime, input, player, m_assetManager, m_graphics);
     }
 }
 

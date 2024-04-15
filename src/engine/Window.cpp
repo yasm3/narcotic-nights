@@ -14,7 +14,7 @@ void Window::init()
 
     // SDL_Image initialization
     if (IMG_Init(IMG_INIT_PNG) == 0) {
-        throw std::runtime_error("Failed to init SDL_Image: " + std::string(SDL_GetError()));
+        throw std::runtime_error("Failed to init SDL_Image: " + std::string(IMG_GetError()));
     }
 
     SDL_SetHint(SDL_HINT_IME_SHOW_UI, "1");

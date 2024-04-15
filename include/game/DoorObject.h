@@ -4,6 +4,11 @@
 #include "GameObject.h"
 #include "Dungeon.h"
 
+/**
+ * @class DoorObject
+ * 
+ * @brief Objet permettant de téléporter le Player dans les autres salles
+ */
 class DoorObject : public GameObject {
     public:
         DoorObject(Texture* texture, Direction direction, Vector2D<int> destination, Graphics& graphics, Dungeon& dungeon);

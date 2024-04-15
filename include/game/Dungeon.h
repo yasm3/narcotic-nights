@@ -6,6 +6,8 @@
 #include "AssetManager.h"
 #include "DevMenu.h"
 #include "Vector2D.h"
+#include "Player.h"
+#include "Room.h"
 
 enum class Direction {
     LEFT,
@@ -14,6 +16,11 @@ enum class Direction {
     DOWN
 };
 
+/**
+ * @class Dungeon
+ * 
+ * @brief Classe gérant la representation, l'affichage et la génération procédurale du donjon
+ */
 class Dungeon {
     public:
         Dungeon(int width, int height, AssetManager& assetManager, Graphics& graphics);

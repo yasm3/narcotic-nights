@@ -5,6 +5,7 @@
 #include "DoorObject.h"
 #include "ColliderObject.h"
 #include "MobObject.h"
+#include "BulletObject.h"
 
 using json = nlohmann::json;
 
@@ -119,7 +120,7 @@ void Room::draw(Graphics& graphics)
     }
 }
 
-void Room::update(int deltaTime, Input& input, Player& player)
+void Room::update(int deltaTime, Input& input, Player& player, AssetManager& assetManager, Graphics& graphics)
 {
     for (auto& object : m_gameObjects) {
         if (DoorObject* door = dynamic_cast<DoorObject*>(object.get())) {
@@ -134,6 +135,16 @@ void Room::update(int deltaTime, Input& input, Player& player)
         }
         else if (MobObject* mob = dynamic_cast<MobObject*>(object.get())) {
             mob->update(deltaTime, input);
+            if (mob->collidesWith(player)) {
+                mob->handleCollision(player);
+            }
         }
+        else {
+            object->update(deltaTime, input);
+        }
+    }
+
+    if (input.isKeyDown(SDL_SCANCODE_SPACE)) {
+        
     }
 }

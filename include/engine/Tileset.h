@@ -7,6 +7,11 @@
 #include <string>
 #include "Texture.h"
 
+/**
+ * @class Tileset
+ * 
+ * @brief Classe representant un Tileset
+ */
 class Tileset {
 	public:
 		Tileset(int tileWidth, int tileHeight);

@@ -4,6 +4,11 @@
 #include <vector>
 #include "Tileset.h"
 
+/**
+ * @class Tilemap
+ * 
+ * @brief Classe representant une Tilemap
+ */
 class Tilemap {
     public:
         Tilemap(int width, int height, Tileset& tileset);
