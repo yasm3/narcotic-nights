@@ -4,6 +4,7 @@
 #include <filesystem>
 #include "DoorObject.h"
 #include "ColliderObject.h"
+#include "MobObject.h"
 
 Dungeon::Dungeon(int w, int h, AssetManager& aM, Graphics& graphics) :
     m_size(w,h),
@@ -108,6 +109,15 @@ void Dungeon::randomGenerate(int maxRooms)
             m_rooms[getRoomId(currentPos)].addColliders(m_graphics);
             m_rooms[getRoomId(m_currentPos)].addColliders(m_graphics);
 
+
+            for (int i = 0; i < 3; ++i) {
+                m_rooms[getRoomId(m_currentPos)].addGameObject(
+                    std::make_shared<MobObject>(m_assetManager.getTexture("mob").get(),
+                        Vector2D<int>(m_graphics.getWindow()->getWidth() / 2 + generateRandomNumber(30, 40), m_graphics.getWindow()->getHeight() / 2 + generateRandomNumber(30, 40)),
+                        m_graphics
+                ));
+            }
+
             roomQueue.pop();
         }
     }
@@ -125,12 +135,12 @@ void Dungeon::draw()
     }
 }
 
-void Dungeon::update(Player& player)
+void Dungeon::update(int deltaTime, Input& input, Player& player)
 {
     int roomId = getRoomId(m_currentPos);
     if (roomId != -1) {
         assert(roomId < m_rooms.size());
-        m_rooms[roomId].update(player);
+        m_rooms[roomId].update(deltaTime, input, player);
     }
 }
 

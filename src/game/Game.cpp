@@ -26,6 +26,7 @@ void Game::init()
     std::cout << "Loading assets..." << std::endl;
     m_assetManager.loadTexture("player", "data/img/player.png");
     m_assetManager.loadTexture("door", "data/img/door.png");
+    m_assetManager.loadTexture("mob", "data/img/mob.png");
     m_assetManager.loadTileset("data/img/tileset.png", 18, 18, 1, 4, 1);
 
     m_window.setWidth(12 * m_assetManager.getTileset().getTileWidth() * m_graphics.getScale());
@@ -48,7 +49,7 @@ void Game::cleanup()
 void Game::update(float deltaTime)
 {
     m_player.update(deltaTime, m_input);
-    m_dungeon.update(m_player);
+    m_dungeon.update(deltaTime, m_input, m_player);
 }
 
 void Game::draw()

@@ -4,6 +4,7 @@
 #include <nlohmann/json.hpp>
 #include "DoorObject.h"
 #include "ColliderObject.h"
+#include "MobObject.h"
 
 using json = nlohmann::json;
 
@@ -30,7 +31,7 @@ RoomType Room::strToType(const std::string& roomType) const
         return RoomType::BOSS;
     }
     else {
-        throw std::runtime_error("invalid room type"); 
+        throw std::runtime_error("invalid room type");
     }
 }
 
@@ -38,7 +39,7 @@ void Room::addColliders(Graphics& graphics)
 {
     for (int i = 0; i < m_tilemap->getWidth(); ++i) {
         std::shared_ptr<ColliderObject> collider = std::make_shared<ColliderObject>(
-            Vector2D<int>(i * graphics.getScale() * m_tileset.getTileWidth(), 0) ,
+            Vector2D<int>(i * graphics.getScale() * m_tileset.getTileWidth(), 0),
             Vector2D<int>(m_tileset.getTileWidth(), m_tileset.getTileHeight()),
             graphics
         );
@@ -110,7 +111,7 @@ void Room::addGameObject(std::shared_ptr<GameObject> object)
     m_gameObjects.push_back(object);
 }
 
-void Room::draw(Graphics& graphics) 
+void Room::draw(Graphics& graphics)
 {
     graphics.drawTilemap(getTilemap());
     for (auto& object : m_gameObjects) {
@@ -118,7 +119,7 @@ void Room::draw(Graphics& graphics)
     }
 }
 
-void Room::update(Player& player)
+void Room::update(int deltaTime, Input& input, Player& player)
 {
     for (auto& object : m_gameObjects) {
         if (DoorObject* door = dynamic_cast<DoorObject*>(object.get())) {
@@ -130,6 +131,9 @@ void Room::update(Player& player)
             if (collider->collidesWith(player)) {
                 collider->handleCollision(player);
             }
+        }
+        else if (MobObject* mob = dynamic_cast<MobObject*>(object.get())) {
+            mob->update(deltaTime, input);
         }
     }
 }

@@ -27,7 +27,7 @@ class Dungeon {
         void randomGenerate(int maxRooms);
 
         void draw();
-        void update(Player& player);
+        void update(int deltaTime, Input& input, Player& player);
         void printText() const;
         static Direction oppositeDirection(Direction direction);
     private:

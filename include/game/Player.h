@@ -16,6 +16,7 @@ class Player : public GameObject {
         float m_friction;
         bool m_blocked = false;
         float mid(float first, float second, float third);
+        float m_hp = 100;
 };
 
 #endif

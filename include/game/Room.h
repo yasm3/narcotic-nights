@@ -21,7 +21,7 @@ class Room {
         int getID() const;
         void addGameObject(std::shared_ptr<GameObject> object);
         void draw(Graphics& graphics);
-        void update(Player& player);
+        void update(int deltaTime, Input& input, Player& player);
         void addColliders(Graphics& graphics);
     private:
         int m_id;

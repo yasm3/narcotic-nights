@@ -4,6 +4,7 @@
 #include "Graphics.h"
 #include "Input.h"
 #include "Vector2D.h"
+#include <random>
 
 class GameObject {
     public:
@@ -33,6 +34,8 @@ class GameObject {
         bool AABBCollision(GameObject& other);
         bool m_showHitbox;
         Graphics& m_graphics;
+
+        int generateRandomNumber(int min, int max) const;
 };
 
 #endif

@@ -1,6 +1,12 @@
 #include "GameObject.h"
 
-GameObject::GameObject(Texture* texture, Vector2D<int> position, Graphics& graphics) : m_texture(texture), m_position(position), m_size(0), m_visible(true), m_showHitbox(false), m_graphics(graphics)
+GameObject::GameObject(Texture* texture, Vector2D<int> position, Graphics& graphics) :
+    m_texture(texture),
+    m_position(position),
+    m_size(0),
+    m_visible(true),
+    m_showHitbox(false),
+    m_graphics(graphics)
 {
     if (texture != nullptr) {
         m_size.x = texture->getWidth();
@@ -96,4 +102,9 @@ bool GameObject::AABBCollision(GameObject& other)
     if (left1 < right2 && right1 > left2 && top1 < bottom2 && bottom1 > top2)
         return true;
     return false;
+}
+
+int GameObject::generateRandomNumber(int min, int max) const
+{
+    return (rand() + min) % max;
 }
