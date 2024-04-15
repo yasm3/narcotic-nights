@@ -1,4 +1,7 @@
 #include "AssetManager.h"
+#include <filesystem>
+
+namespace fs = std::filesystem;
 
 void AssetManager::attachRenderer(SDL_Renderer* renderer)
 {
@@ -7,17 +10,24 @@ void AssetManager::attachRenderer(SDL_Renderer* renderer)
 
 void AssetManager::loadTexture(const std::string& name, const std::string& filename)
 {
-    std::unique_ptr<Texture> texture = std::make_unique<Texture>(m_renderer, filename);
+    std::shared_ptr<Texture> texture = std::make_shared<Texture>(m_renderer, filename);
     m_textures[name] = std::move(texture);
 }
 
-Texture& AssetManager::getTexture(const std::string& name)
+Texture& AssetManager::getTexture(const std::string& name) const
 {
     auto it = m_textures.find(name);
-    if(it == m_textures.end()) {
+    if(it == m_textures.end())
         throw std::runtime_error("Texture not found: " + name);
-    }
     return *it->second;
+}
+
+std::shared_ptr<Texture> AssetManager::getTexture(const std::string& name)
+{
+    auto it = m_textures.find(name);
+    if (it == m_textures.end())
+        throw std::runtime_error("Texture not found: " + name);
+    return it->second;
 }
 
 void AssetManager::loadTileset(const std::string& filename, int tileWidth, int tileHeight, int tilePadding, int totalWidth, int totalHeight)
@@ -27,7 +37,8 @@ void AssetManager::loadTileset(const std::string& filename, int tileWidth, int t
     m_tileset = std::move(tileset);
 }
 
-Tileset& AssetManager::getTileset()
+Tileset& AssetManager::getTileset() const
 {
     return *m_tileset;
 }
+

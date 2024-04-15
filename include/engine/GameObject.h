@@ -3,23 +3,36 @@
 
 #include "Graphics.h"
 #include "Input.h"
+#include "Vector2D.h"
 
 class GameObject {
     public:
-        GameObject(Texture& texture, int posX, int posY);
+        GameObject(Texture* texture, Vector2D<int> position, Graphics& graphics);
 
         virtual void update(float deltaTime, Input& input) = 0;
-        virtual void draw(Graphics& graphics) = 0;
-        virtual bool collidesWith(GameObject& other) = 0;
+        virtual void draw();
+        virtual bool collidesWith(GameObject& other);
         virtual void handleCollision(GameObject& other) = 0;
 
-        int getPosX() const;
-        int getPosY() const;
+        void setTexture(Texture* texture);
+        Vector2D<int> getPosition() const;
+        Vector2D<int> getSize() const;
+        void setPosition(Vector2D<int> newPosition);
+
+        void show();
+        void hide();
+        bool getShowHitbox() const;
+        void showHitbox(bool show);
+        void drawHitbox();
+
     protected:
-        int m_x, m_y;
-        int m_w, m_h;
-        Texture& m_texture;
+        Vector2D<int> m_position;
+        Vector2D<int> m_size;
+        Texture* m_texture;
         bool m_visible;
+        bool AABBCollision(GameObject& other);
+        bool m_showHitbox;
+        Graphics& m_graphics;
 };
 
 #endif

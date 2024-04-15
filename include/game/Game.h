@@ -10,6 +10,7 @@
 #include "DevMenu.h"
 #include "Room.h"
 #include "Player.h"
+#include "Dungeon.h"
 
 enum GameState {
     PLAYING
@@ -34,14 +35,12 @@ class Game {
         Graphics m_graphics;
         AssetManager m_assetManager;
         Input m_input;
-
         DevMenu m_devMenu;
-
         friend class DevMenu;
 
-        std::unique_ptr<Player> m_player;
-
-        Room* room;
+        // game parts
+        Player m_player;
+        Dungeon m_dungeon;
 };
 
 #endif

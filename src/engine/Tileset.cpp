@@ -20,7 +20,6 @@ void Tileset::loadFromFile(SDL_Renderer* r, const std::string& filePath, int til
 	Texture tileset(r, filePath);
 
 	SDL_Rect src;
-	SDL_Rect dst;
 	for (int i = 0; i < totalHeight; i++) {
 		for (int j = 0; j < totalWidth; j++) {
 			std::unique_ptr<Texture> tile = std::make_unique<Texture>(r, m_tileWidth, m_tileHeight);

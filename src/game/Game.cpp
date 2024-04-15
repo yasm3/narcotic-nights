@@ -1,15 +1,15 @@
 #include "Game.h"
 #include <iostream>
 #include <filesystem>
-#include "Dungeon.h"
 
 Game::Game() : m_running(true),
-m_gamestate(GameState::PLAYING),
-m_window("Narcotic Nights", 1200, 800),
-m_renderer(nullptr),
-m_devMenu(*this),
-m_last_frame_time(0),
-room(nullptr)
+    m_gamestate(GameState::PLAYING),
+    m_window("Narcotic Nights", 1200, 1000),
+    m_renderer(nullptr),
+    m_devMenu(*this),
+    m_last_frame_time(0),
+    m_player(nullptr, Vector2D<int>(0), m_graphics),
+    m_dungeon(9, 6, m_assetManager, m_graphics)
 {}
 
 Game::~Game() {}
@@ -20,15 +20,24 @@ void Game::init()
     m_window.init();
     m_renderer = m_window.getRenderer();
     m_graphics.attachWindow(&m_window);
+    m_graphics.setScale(5);
     m_assetManager.attachRenderer(m_renderer);
 
     std::cout << "Loading assets..." << std::endl;
-    m_assetManager.loadTexture("sprite", "assets/img/Sprite1.png");
-    m_assetManager.loadTileset("assets/img/tileset.png", 18, 18, 1, 20, 9);
+    m_assetManager.loadTexture("player", "data/img/player.png");
+    m_assetManager.loadTexture("door", "data/img/door.png");
+    m_assetManager.loadTileset("data/img/tileset.png", 18, 18, 1, 4, 1);
 
-    room = new Room("assets/room/room0.json", m_assetManager.getTileset());
+    m_window.setWidth(12 * m_assetManager.getTileset().getTileWidth() * m_graphics.getScale());
+    m_window.setHeight(9 * m_assetManager.getTileset().getTileHeight() * m_graphics.getScale());
+
+    // player init
     std::cout << "Player creation..." << std::endl;
-    m_player = std::make_unique<Player>(m_assetManager.getTexture("sprite"), m_window.getWidth()/2, m_window.getHeight()/2);
+    m_player.setTexture(m_assetManager.getTexture("player").get());
+    m_player.setPosition(Vector2D<int>(m_window.getWidth() / 2, m_window.getHeight() / 2));
+
+    // dungeon
+    m_dungeon.randomGenerate(10);
 }
 
 void Game::cleanup()
@@ -38,7 +47,8 @@ void Game::cleanup()
 
 void Game::update(float deltaTime)
 {
-    m_player->update(deltaTime, m_input);
+    m_player.update(deltaTime, m_input);
+    m_dungeon.update(m_player);
 }
 
 void Game::draw()
@@ -46,8 +56,8 @@ void Game::draw()
     m_graphics.clear();
     switch (m_gamestate) {
     case GameState::PLAYING:
-        m_graphics.drawTilemap(room->getTilemap());
-        m_player->draw(m_graphics);
+        m_dungeon.draw();
+        m_player.draw();
         break;
     }
 }
@@ -56,6 +66,7 @@ void Game::run()
 {
     try {
         init();
+        float desiredDelta = 1000 / 60;
         while (m_running)
         {
             float deltaTime = (SDL_GetTicks() - m_last_frame_time) / 1000.0;
@@ -99,6 +110,10 @@ void Game::run()
             draw();
             ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData());
             m_graphics.present();
+
+            if (deltaTime < desiredDelta) {
+                SDL_Delay(desiredDelta - deltaTime);
+            }
         }
         cleanup();
     }

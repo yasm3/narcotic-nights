@@ -1,6 +1,6 @@
 #include "Graphics.h"
 
-Graphics::Graphics() : m_window(nullptr), m_renderer(nullptr) {}
+Graphics::Graphics() : m_window(nullptr), m_renderer(nullptr), m_scale(1) {}
 
 Graphics::~Graphics() {}
 
@@ -24,6 +24,21 @@ void Graphics::clear(unsigned char r, unsigned char g, unsigned char b, unsigned
 void Graphics::present()
 {
     SDL_RenderPresent(m_renderer);
+}
+
+int Graphics::getScale() const
+{
+    return m_scale;
+}
+
+void Graphics::setScale(int newScale)
+{
+    m_scale = newScale;
+}
+
+const Window* Graphics::getWindow() const
+{
+    return m_window;
 }
 
 void Graphics::draw(const Texture& t, int x, int y)
@@ -56,27 +71,31 @@ void Graphics::drawTilemap(const Tilemap& tm)
     int tilesNumberWidth = tm.getWidth();
     int tilesNumberHeight = tm.getHeight();
 
-    int mapWidth = tilesNumberWidth * tileWidth;
-    int mapHeight = tilesNumberHeight * tileHeight;
-
     int windowWidth = m_window->getWidth();
     int windowHeight = m_window->getHeight();
 
     int centerX = windowWidth / 2;
     int centerY = windowHeight / 2;
 
-    int scale = std::min((float)windowWidth / mapWidth, (float)windowHeight / mapHeight);
-
-    int startScreenX = centerX - (tilesNumberWidth * tileWidth * scale) / 2;
-    int startScreenY = centerY - (tilesNumberHeight * tileHeight * scale) / 2;
+    int startScreenX = centerX - (tilesNumberWidth * tileWidth * m_scale) / 2;
+    int startScreenY = centerY - (tilesNumberHeight * tileHeight * m_scale) / 2;
 
     int tileX, tileY;
-
+   
     for (int col = 0; col < tilesNumberHeight; col++) {
         for (int row = 0; row < tilesNumberWidth; row++) {
-            tileX = row * tileWidth * scale + startScreenX;
-            tileY = col * tileHeight * scale + startScreenY;
-            draw(tm.getTile(row, col), tileX, tileY, scale);
+            tileX = row * tileWidth * m_scale;
+            tileY = col * tileHeight * m_scale;
+            draw(tm.getTile(row, col), tileX, tileY, m_scale);
         }
     }
+}
+
+void Graphics::drawRectangle(Vector2D<int> position, Vector2D<int> dimensions, int r, int g, int b)
+{
+    SDL_SetRenderDrawColor(m_renderer, r, g, b, 255);
+    dimensions = dimensions * m_scale;
+    SDL_Rect rect = { position.x, position.y, dimensions.x, dimensions.y };
+    SDL_RenderDrawRect(m_renderer, &rect);
+    SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
 }
