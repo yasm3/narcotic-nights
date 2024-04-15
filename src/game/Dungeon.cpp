@@ -3,6 +3,7 @@
 #include <queue>
 #include <filesystem>
 #include "DoorObject.h"
+#include "ColliderObject.h"
 
 Dungeon::Dungeon(int w, int h, AssetManager& aM, Graphics& graphics) :
     m_size(w,h),
@@ -102,6 +103,10 @@ void Dungeon::randomGenerate(int maxRooms)
    
             m_rooms[getRoomId(currentPos)].addGameObject(std::move(firstDoor));
             m_rooms[getRoomId(m_currentPos)].addGameObject(std::move(nextDoor));
+
+            m_rooms[getRoomId(currentPos)].addColliders(m_graphics);
+            m_rooms[getRoomId(m_currentPos)].addColliders(m_graphics);
+
             roomQueue.pop();
         }
     }

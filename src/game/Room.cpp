@@ -3,6 +3,7 @@
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include "DoorObject.h"
+#include "ColliderObject.h"
 
 using json = nlohmann::json;
 
@@ -30,6 +31,18 @@ RoomType Room::strToType(const std::string& roomType) const
     }
     else {
         throw std::runtime_error("invalid room type"); 
+    }
+}
+
+void Room::addColliders(Graphics& graphics)
+{
+    for (int i = 0; i < m_tilemap->getWidth(); ++i) {
+        std::shared_ptr<ColliderObject> collider = std::make_shared<ColliderObject>(
+            Vector2D<int>(150, 150),
+            Vector2D<int>(m_tileset.getTileWidth(), m_tileset.getTileHeight()),
+            graphics
+        );
+        addGameObject(std::move(collider));
     }
 }
 
@@ -86,10 +99,10 @@ void Room::update(Player& player)
                 door->handleCollision(player);
             }
         }
+        else if (ColliderObject* collider = dynamic_cast<ColliderObject*>(object.get())) {
+            if (collider->collidesWith(player)) {
+                collider->handleCollision(player);
+            }
+        }
     }
-}
-
-Vector2D<int> Room::changeRoom()
-{
-    return Vector2D<int>();
 }

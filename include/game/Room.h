@@ -22,7 +22,7 @@ class Room {
         void addGameObject(std::shared_ptr<GameObject> object);
         void draw(Graphics& graphics);
         void update(Player& player);
-        Vector2D<int> changeRoom();
+        void addColliders(Graphics& graphics);
     private:
         int m_id;
         RoomType m_type;
