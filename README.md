@@ -1,35 +1,33 @@
 # Narcotic Nights
 
-Projet du LIFAPCD de Smail YAHIOUNE (12103134) et Malick SOW (12312542). Narcotic Nights est un jeu en vue de dessus ou vous incarnez un policier chargé d'éradiquer un cartel de drogue.
-Le jeu est de type roguelike, le "donjon" dans lequel le joueur évolue est générée procéduralement à chaque nouvelle partie.
+2D roguelite game with top-view with self-built C++/SDL2 game engine.
 
-Les deplacements se font avec les flèches diréctionelles, l'idée est de rejoindre la salle du boss (la plus éloignée de la salle de départ) et affronter les ennemies sur le passage.
-La touche "T" permet d'ouvrir un menu de debug.
-
-# Compilation
-
-Le projet est compilable sur GNU/Linux et Windows. 
+# Build project
 
 ## GNU/Linux
 
-**Pré-réquis:** 
-- gcc / g++ : compilateur
-- cmake et ninja
-- Bibliothèques: ``sdl2`` ``sdl2_image`` ``SDL2_mixer`` ``sdl2_ttf_ ``json``
+**Requirements:** 
+- gcc / g++
+- cmake and ninja
+- Libraries: ``sdl2`` ``sdl2_image`` ``SDL2_mixer`` ``sdl2_ttf`` ``nlohmann-json``
 
-Une commande pour tout installer sur Fedora : ``sudo dnf install gcc cmake ninja-build SDL2-devel SDL2_image-devel SDL2_mixer-devel SDL2_ttf-devel_``
+For Ubuntu 24.04 : ``sudo apt update && sudo apt install -y \
+gcc g++ \
+cmake ninja-build \
+libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev \
+nlohmann-json3-dev``
 
-1) Ensuite à la racine du projet, configurer le projet: ``cmake --preset linux-x64-debug`` (ou linux-x64-release pour compiler en mode Release)
-2) Et finalement compiler : ``cd build/linux-x64-debug && ninja all`` (ou release...)
+1) At root of project, let's configure with ``cmake --preset linux-x64-debug`` (or linux-x64-release for release mode)
+2) Build : ``cd build/linux-x64-debug && ninja all`` (or release)
 
 ## Windows
-- Visual Studio avec le module Developpement C++ installé
-- vcpkg (inclus normalement dans Visual Studio) et définir la variable d'environement ``VCPKG_ROOT`` avec le chemin vers la racine du dossier vcpkg
+- Visual Studio with C++ module installed
+- vcpkg
   
-1) Ouvrir le projet avec Visual Studio et configurez le avec un des deux presets proposés (debug et release)
-2) VCPKG s'occupera de récuperer toutes les dépendences lui même
-3) Compiler et executer
+1) Open with Visual Studio and configure with one preset
+2) Waits during VCPKG installs requirements
+3) Build and run
 
-## Générer la doc
+## Doxygen documentations
 
-- Faire ``ninja doc`` depuis le dossier de build
+- ``ninja doc`` from ``build`` folder
