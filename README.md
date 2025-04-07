@@ -11,11 +11,7 @@ First true project with C++: 2D roguelite game with top-view with self-built C++
 - cmake and ninja
 - Libraries: ``sdl2`` ``sdl2_image`` ``SDL2_mixer`` ``sdl2_ttf`` ``nlohmann-json``
 
-For Ubuntu 24.04 : ``sudo apt update && sudo apt install -y \
-gcc g++ \
-cmake ninja-build \
-libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev \
-nlohmann-json3-dev``
+For Ubuntu 24.04 : ``sudo apt update && sudo apt install -y gcc g++ cmake ninja-build libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev nlohmann-json3-dev``
 
 1) At root of project, let's configure with ``cmake --preset linux-x64-debug`` (or linux-x64-release for release mode)
 2) Build : ``cd build/linux-x64-debug && ninja all`` (or release)
