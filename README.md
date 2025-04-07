@@ -1,6 +1,6 @@
 # Narcotic Nights
 
-2D roguelite game with top-view with self-built C++/SDL2 game engine.
+First true project with C++: 2D roguelite game with top-view with self-built C++/SDL2 game engine.
 
 # Build project
 
